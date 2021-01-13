@@ -1,0 +1,20 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "bin/": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "Pathfinder-Java-2019.2.19.jar",
+    "Pathfinder-JNI-2019.2.19-windowsx86-64.jar"
+  ]
+}
