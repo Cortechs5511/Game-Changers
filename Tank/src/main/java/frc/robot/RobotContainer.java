@@ -1,7 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.*;
-// import frc.robot.commands.auto.TrajectoryFollower;
+import frc.robot.commands.auto.TrajectoryFollower;
 import frc.robot.commands.auto.paths.*;
 /*import frc.robot.commands.auto.groups.BackTowerSimple;
 import frc.robot.commands.auto.groups.TowerSimple;
@@ -44,14 +44,14 @@ public class RobotContainer {
 	private final LightToggle m_lightToggle = new LightToggle(m_limelight);
 	private final StopDrive m_stop = new StopDrive(m_drive);
 
-	// private final TrajectoryFollower m_trajectoryFollower = new TrajectoryFollower(m_drive);
+	private final TrajectoryFollower m_trajectoryFollower = new TrajectoryFollower(m_drive);
 
 	Joystick leftStick = new Joystick(0);
 	Joystick rightStick = new Joystick(1);
 	XboxController controller = new XboxController(2);
 
 	enum autonMode {
-		TowerSimple, BackTowerSimple, TrenchSimple, TowerSimpleForward
+		PathA
 	}
 
 	SendableChooser<autonMode> m_chooser = new SendableChooser<>();
@@ -75,10 +75,12 @@ public class RobotContainer {
 		getNumber("DriveDelay", 3.0);
 		getNumber("ShootDelay", 3.0);
 
-		m_chooser.addOption("Tower Simple", autonMode.TowerSimple);
+		/*m_chooser.addOption("Tower Simple", autonMode.TowerSimple);
 		m_chooser.addOption("Back Tower Simple", autonMode.BackTowerSimple);
 		m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
-		m_chooser.addOption("Tower Simple Forwards", autonMode.TowerSimpleForward);
+		m_chooser.addOption("Tower Simple Forwards", autonMode.TowerSimpleForward);*/
+
+		m_chooser.addOption("Path A", autonMode.PathA);
 
 		Shuffleboard.getTab("Autonomous").add(m_chooser);
 	}
@@ -109,7 +111,7 @@ public class RobotContainer {
 	public Command getAutonomousCommand() {
 		switch (m_chooser.getSelected()) {
 
-		case TowerSimple:
+		/*case TowerSimple:
 			return new TowerSimple(m_drive).andThen(m_stop);
 		case TowerSimpleForward:
 			return new WaitCommand(1.0);
@@ -118,7 +120,14 @@ public class RobotContainer {
 		case TrenchSimple:
 			return new WaitCommand(1.0);
 		default:
+			return new WaitCommand(1.0);*/
+		
+
+		case PathA:
+			return new PathA(m_drive).andThen(m_stop);
+		default:
 			return new WaitCommand(1.0);
+
 		}
 	}
 
