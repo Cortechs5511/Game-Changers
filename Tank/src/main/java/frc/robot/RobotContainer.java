@@ -81,6 +81,7 @@ public class RobotContainer {
 		m_chooser.addOption("Tower Simple Forwards", autonMode.TowerSimpleForward);*/
 
 		m_chooser.addOption("Path A", autonMode.PathA);
+		m_chooser.setDefaultOption("Path A", autonMode.PathA);
 
 		Shuffleboard.getTab("Autonomous").add(m_chooser);
 	}
@@ -124,7 +125,7 @@ public class RobotContainer {
 		
 
 		case PathA:
-			return new PathA(m_drive).andThen(m_stop);
+			return PathA.getPathA(m_drive).andThen(new WaitCommand(10)).andThen(m_stop);
 		default:
 			return new WaitCommand(1.0);
 

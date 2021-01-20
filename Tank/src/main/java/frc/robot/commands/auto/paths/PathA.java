@@ -23,15 +23,9 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 import java.util.List;
 
-public class PathA extends CommandBase {
-	private Drive m_drive;
-
-	public PathA(Drive drive) {
-		m_drive = drive;
-		addRequirements(drive);
-	}
+public class PathA {
     
-	public RamseteCommand getPathA() {
+	public static RamseteCommand getPathA(Drive m_drive) {
 		final DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
 				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
 						DriveConstants.kaVoltSecondsSquaredPerMeter),
@@ -63,5 +57,4 @@ public class PathA extends CommandBase {
 
 		return command;
 	}
-
 }
