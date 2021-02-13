@@ -26,8 +26,9 @@ import java.util.List;
 public class PathA {
     
 	public static RamseteCommand getPathA(Drive m_drive) {
+		m_drive.resetOdometry(new Pose2d(0, 0, new Rotation2d()));
 		final DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
+				new SimpleMotorFeedforward(DriveConstants.ksVolts * 15, DriveConstants.kvVoltSecondsPerMeter,
 						DriveConstants.kaVoltSecondsSquaredPerMeter),
 				DriveConstants.kDriveKinematics, 9);
 
@@ -51,8 +52,8 @@ public class PathA {
 						DriveConstants.kaVoltSecondsSquaredPerMeter),
 				DriveConstants.kDriveKinematics, 
 				m_drive::getWheelSpeeds,
-				new PIDController(DriveConstants.kPDriveVel, 0, 0), 
-				new PIDController(DriveConstants.kPDriveVel, 0, 0),
+				new PIDController(0, 0, 0), //DriveConstants.kPDriveVel
+				new PIDController(0, 0, 0),
 				m_drive::setOutput, m_drive);
 
 		return command;

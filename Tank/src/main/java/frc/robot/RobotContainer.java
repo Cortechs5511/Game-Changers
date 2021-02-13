@@ -51,7 +51,8 @@ public class RobotContainer {
 	XboxController controller = new XboxController(2);
 
 	enum autonMode {
-		PathA
+		PathA, 
+		TowerSimple
 	}
 
 	SendableChooser<autonMode> m_chooser = new SendableChooser<>();
@@ -75,10 +76,8 @@ public class RobotContainer {
 		getNumber("DriveDelay", 3.0);
 		getNumber("ShootDelay", 3.0);
 
-		/*m_chooser.addOption("Tower Simple", autonMode.TowerSimple);
-		m_chooser.addOption("Back Tower Simple", autonMode.BackTowerSimple);
-		m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
-		m_chooser.addOption("Tower Simple Forwards", autonMode.TowerSimpleForward);*/
+		m_chooser.addOption("Tower Simple", autonMode.TowerSimple);
+		//m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
 
 		m_chooser.addOption("Path A", autonMode.PathA);
 		m_chooser.setDefaultOption("Path A", autonMode.PathA);
@@ -111,21 +110,12 @@ public class RobotContainer {
 
 	public Command getAutonomousCommand() {
 		switch (m_chooser.getSelected()) {
-
-		/*case TowerSimple:
-			return new TowerSimple(m_drive).andThen(m_stop);
-		case TowerSimpleForward:
-			return new WaitCommand(1.0);
-		case BackTowerSimple:
-			return new WaitCommand(1.0);
-		case TrenchSimple:
-			return new WaitCommand(1.0);
-		default:
+		case TowerSimple:
+			return TowerSimple.getTowerSimple(m_drive).andThen(new WaitCommand(5)).andThen(m_stop);
+		/*case TrenchSimple:
 			return new WaitCommand(1.0);*/
-		
-
 		case PathA:
-			return PathA.getPathA(m_drive).andThen(new WaitCommand(10)).andThen(m_stop);
+			return PathA.getPathA(m_drive).andThen(new WaitCommand(5)).andThen(m_stop);
 		default:
 			return new WaitCommand(1.0);
 

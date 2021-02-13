@@ -21,15 +21,9 @@ import frc.robot.Constants.DriveConstants;
 
 import frc.robot.subsystems.Drive;
 
-public class TowerSimple extends CommandBase {
-	private Drive m_drive;
+public class TowerSimple {
 
-	public TowerSimple(Drive drive) {
-		m_drive = drive;
-		addRequirements(drive);
-	}
-
-	public RamseteCommand getTowerSimple() {
+	public static RamseteCommand getTowerSimple(Drive m_drive) {
 		final DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
 				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
 						DriveConstants.kaVoltSecondsSquaredPerMeter),
@@ -54,7 +48,6 @@ public class TowerSimple extends CommandBase {
 				new PIDController(DriveConstants.kPDriveVel, 0, 0), 
 				new PIDController(DriveConstants.kPDriveVel, 0, 0),
 				m_drive::setOutput, m_drive);
-
 		return command;
 	}
 
