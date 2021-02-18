@@ -82,7 +82,7 @@ public class AccelAlign extends CommandBase {
 		m_drive.setRight(0);
 		//SmartDashboard.putBoolean("Limelight Align Active", false);
 
-		m_shooter.setRampRate(0.15);
+		m_shooter.setRampRate(0.01);
 		count = 0;
 
 		m_oi.setLeftRumble(0);

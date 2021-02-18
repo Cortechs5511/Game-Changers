@@ -49,7 +49,7 @@ public class Accel extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		m_limelight.setLightStatus(1);
-		m_shooter.setRampRate(0.15);
+		m_shooter.setRampRate(0.05);
 		count = 0;
 
 		m_oi.setLeftRumble(0);
