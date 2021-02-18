@@ -48,7 +48,9 @@ public class Shooter extends SubsystemBase {
 		shoot1.setOpenLoopRampRate(1.5);
 
 		shoot0.setInverted(true);
-		shoot1.setInverted(false);
+		shoot1.setInverted(true);
+
+        shoot1.follow(shoot0, true);
 
 		shootPID.setOutputRange(0, 1);
 
@@ -85,7 +87,6 @@ public class Shooter extends SubsystemBase {
 		shootPID.setI(SmartDashboard.getNumber("Shooter I", 0));
 		shootPID.setD(SmartDashboard.getNumber("Shooter D", 0.00004));
 		shootPID.setFF(SmartDashboard.getNumber("Shooter FF", 0.00020));
-		shoot1.set(shoot0.get());
 
 		SmartDashboard.putNumber("Shooter rpm", shootEnc.getVelocity());
 	}

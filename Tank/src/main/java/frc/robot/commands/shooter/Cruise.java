@@ -13,8 +13,8 @@ public class Cruise extends CommandBase {
 	private Shooter m_shooter;
 	private Feeder m_feeder;
 	private Intake m_intake;
-	private Limelight m_limelight;
-
+    private Limelight m_limelight;
+     
 	private double target;
 
 	private OI m_oi = OI.getInstance();
@@ -82,8 +82,8 @@ public class Cruise extends CommandBase {
 		m_oi.setRightRumble(0);
 
 		m_shooter.setRampRate(1.5);
-		m_shooter.setSpeed(0);
 		m_shooter.setPIDReference(0);
+		m_shooter.setSpeed(0);
 		// m_shooter.setSpeed(0.7);
 
 		m_feeder.setFeederSpeed(0);
@@ -93,7 +93,7 @@ public class Cruise extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		return ((m_limelight.invalidTarget.get()) || (count > 50) || (m_shooter.getSpeed.get() < 1000)); // about 2
+		return ((count > 50) || (m_shooter.getSpeed.get() < 1000)); // about 2
 																											// seconds
 																											// of pause
 																											// or if
