@@ -82,15 +82,15 @@ public class Drive extends SubsystemBase {
 		right0.enableVoltageCompensation(9);
 		right1.enableVoltageCompensation(9);
 
-		left0.setOpenLoopRampRate(0.5);
-		left1.setOpenLoopRampRate(0.5);
-		right0.setOpenLoopRampRate(0.5);
-		right1.setOpenLoopRampRate(0.5);
+		left0.setOpenLoopRampRate(0.2);
+		left1.setOpenLoopRampRate(0.2);
+		right0.setOpenLoopRampRate(0.2);
+		right1.setOpenLoopRampRate(0.2);
 
-		left0.setClosedLoopRampRate(0.5); // still to be tested
-		left1.setClosedLoopRampRate(0.5);
-		right0.setClosedLoopRampRate(0.5);
-		right1.setClosedLoopRampRate(0.5);
+		left0.setClosedLoopRampRate(0.2); // still to be tested
+		left1.setClosedLoopRampRate(0.2);
+		right0.setClosedLoopRampRate(0.2);
+		right1.setClosedLoopRampRate(0.2);
 
 		left0.setSmartCurrentLimit(60, 60, 9000);
 		left1.setSmartCurrentLimit(60, 60, 9000);
