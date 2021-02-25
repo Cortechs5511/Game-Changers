@@ -33,6 +33,9 @@ public class StopShooter extends CommandBase {
         m_feeder.setFeeder2Speed(0);
         m_feeder.setFeeder3Speed(0);
 
+        m_shooter.setPIDReference(0);
+        m_shooter.setSpeed(0);
+
         m_shooter.setRampRate(1.5);
 
         m_drive.setLeft(0);
@@ -51,9 +54,6 @@ public class StopShooter extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_shooter.setPIDReference(0);
-        m_shooter.setSpeed(0);
-
         m_oi.setLeftRumble(0);
         m_oi.setRightRumble(0);
     }
