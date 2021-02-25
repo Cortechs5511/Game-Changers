@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
   double[] numberArray = new double[10];
   ArrayList<Double> entries = new ArrayList<Double>();
   public Robot() {
-    super(.005);
+    super(.05);
     LiveWindow.disableAllTelemetry();
   }
 
@@ -152,16 +152,16 @@ public class Robot extends TimedRobot {
     stick = new Joystick(0);
     
     // create left motor
-    CANSparkMax leftMotor = setupCANSparkMax(10, Sides.LEFT, false);
+    CANSparkMax leftMotor = setupCANSparkMax(10, Sides.LEFT, true);
 
-    CANSparkMax leftFollowerID11 = setupCANSparkMax(11, Sides.FOLLOWER, false);
+    CANSparkMax leftFollowerID11 = setupCANSparkMax(11, Sides.FOLLOWER, true);
     leftFollowerID11.follow(leftMotor, false);
         
     
 
     CANSparkMax rightMotor = setupCANSparkMax(20, Sides.RIGHT, true);
     CANSparkMax rightFollowerID21 = setupCANSparkMax(21, Sides.FOLLOWER, true);
-    rightFollowerID21.follow(rightMotor, true);
+    rightFollowerID21.follow(rightMotor, false);
     drive = new DifferentialDrive(leftMotor, rightMotor);
     drive.setDeadband(0);
 
@@ -176,7 +176,7 @@ public class Robot extends TimedRobot {
 
     // Set the update rate instead of using flush because of a ntcore bug
     // -> probably don't want to do this on a robot in competition
-    NetworkTableInstance.getDefault().setUpdateRate(0.010);
+    NetworkTableInstance.getDefault().setUpdateRate(0.050);
   }
 
   @Override
@@ -251,9 +251,10 @@ public class Robot extends TimedRobot {
     double rightMotorVolts = motorVolts;
 
     // Retrieve the commanded speed from NetworkTables
-    double autospeed = autoSpeedEntry.getDouble(0);
+    double autospeed = autoSpeedEntry.getDouble(0.1);
     priorAutospeed = autospeed;
 
+    System.out.println(autospeed);
     // command motors to do things
     drive.tankDrive(
       (rotateEntry.getBoolean(false) ? -1 : 1) * autospeed, autospeed,
