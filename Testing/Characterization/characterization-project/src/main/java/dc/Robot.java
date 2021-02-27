@@ -55,9 +55,9 @@ import java.util.ArrayList;
 
 public class Robot extends TimedRobot {
 
-  static private int ENCODER_EDGES_PER_REV = 42 / 4;
+  static private int ENCODER_EDGES_PER_REV = 1 / 4;
   static private int PIDIDX = 0;
-  static private int ENCODER_EPR = 42;
+  static private int ENCODER_EPR = 1;
   static private double GEARING = 8.242424;
   
   private double encoderConstant = (1 / GEARING);
@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
   double[] numberArray = new double[10];
   ArrayList<Double> entries = new ArrayList<Double>();
   public Robot() {
-    super(.05);
+    super(.005);
     LiveWindow.disableAllTelemetry();
   }
 
@@ -152,9 +152,9 @@ public class Robot extends TimedRobot {
     stick = new Joystick(0);
     
     // create left motor
-    CANSparkMax leftMotor = setupCANSparkMax(10, Sides.LEFT, true);
+    CANSparkMax leftMotor = setupCANSparkMax(10, Sides.LEFT, false);
 
-    CANSparkMax leftFollowerID11 = setupCANSparkMax(11, Sides.FOLLOWER, true);
+    CANSparkMax leftFollowerID11 = setupCANSparkMax(11, Sides.FOLLOWER, false);
     leftFollowerID11.follow(leftMotor, false);
         
     
@@ -176,7 +176,7 @@ public class Robot extends TimedRobot {
 
     // Set the update rate instead of using flush because of a ntcore bug
     // -> probably don't want to do this on a robot in competition
-    NetworkTableInstance.getDefault().setUpdateRate(0.050);
+    NetworkTableInstance.getDefault().setUpdateRate(0.010);
   }
 
   @Override
@@ -251,10 +251,9 @@ public class Robot extends TimedRobot {
     double rightMotorVolts = motorVolts;
 
     // Retrieve the commanded speed from NetworkTables
-    double autospeed = autoSpeedEntry.getDouble(0.1);
+    double autospeed = autoSpeedEntry.getDouble(0);
     priorAutospeed = autospeed;
 
-    System.out.println(autospeed);
     // command motors to do things
     drive.tankDrive(
       (rotateEntry.getBoolean(false) ? -1 : 1) * autospeed, autospeed,
