@@ -52,7 +52,8 @@ public class RobotContainer {
 
 	enum autonMode {
 		PathA, 
-		TowerSimple
+		TowerSimple,
+		Turn90
 	}
 
 	SendableChooser<autonMode> m_chooser = new SendableChooser<>();
@@ -80,7 +81,8 @@ public class RobotContainer {
 		//m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
 
 		m_chooser.addOption("Path A", autonMode.PathA);
-		m_chooser.setDefaultOption("Path A", autonMode.PathA);
+		m_chooser.addOption("Turn 90", autonMode.Turn90);
+		m_chooser.setDefaultOption("Turn 90", autonMode.Turn90);
 
 		Shuffleboard.getTab("Autonomous").add(m_chooser);
 	}
@@ -116,6 +118,8 @@ public class RobotContainer {
 			return new WaitCommand(1.0);*/
 		case PathA:
 			return PathA.getPathA(m_drive).andThen(new WaitCommand(5)).andThen(m_stop);
+		case Turn90:
+			return  Turn90.getTurn90(m_drive).andThen(new WaitCommand(5)).andThen(m_stop);
 		default:
 			return new WaitCommand(1.0);
 

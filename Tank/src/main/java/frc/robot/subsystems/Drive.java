@@ -177,8 +177,8 @@ public class Drive extends SubsystemBase {
 		SmartDashboard.putNumber("Left Speed", leftEnc.getVelocity());
 		SmartDashboard.putNumber("Right Speed", rightEnc.getVelocity());
 
-		//SmartDashboard.putNumber("Left Position", leftEnc.getPosition());
-		//SmartDashboard.putNumber("Right Position", rightEnc.getPosition());
+		SmartDashboard.putNumber("Left Position", leftEnc.getPosition());
+		SmartDashboard.putNumber("Right Position", rightEnc.getPosition());
 
 		SmartDashboard.putNumber("Left Power", left0.getAppliedOutput());
 		SmartDashboard.putNumber("Right Power", right0.getAppliedOutput());
