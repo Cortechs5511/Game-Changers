@@ -31,10 +31,10 @@ public class Feeder extends SubsystemBase {
         feeder2.configFactoryDefault();
         feeder2.configFactoryDefault();
 
-        feeder0.setNeutralMode(NeutralMode.Brake);
-        feeder1.setNeutralMode(NeutralMode.Brake);
-        feeder2.setNeutralMode(NeutralMode.Brake);
-        feeder2.setNeutralMode(NeutralMode.Brake);
+        feeder0.setNeutralMode(NeutralMode.Coast);
+        feeder1.setNeutralMode(NeutralMode.Coast);
+        feeder2.setNeutralMode(NeutralMode.Coast);
+        feeder2.setNeutralMode(NeutralMode.Coast);
 
         feeder0.setInverted(false);
         feeder1.setInverted(true);

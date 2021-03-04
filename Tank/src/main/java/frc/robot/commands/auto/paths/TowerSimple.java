@@ -45,8 +45,8 @@ public class TowerSimple {
 						DriveConstants.kaVoltSecondsSquaredPerMeter),
 				DriveConstants.kDriveKinematics, 
 				m_drive::getWheelSpeeds,
-				new PIDController(DriveConstants.kPDriveVel, 0, 0), 
-				new PIDController(DriveConstants.kPDriveVel, 0, 0),
+				new PIDController(0, 0, 0), // changed from DriveConstants.kPDriveVel
+				new PIDController(0, 0, 0),
 				m_drive::setOutput, m_drive);
 		return command;
 	}

@@ -9,23 +9,24 @@ public final class Constants {
     public static final int kRightMotor0Port = 10;
     public static final int kRightMotor1Port = 11;
 
-    public static final int kEncoderCPR = 42;
+    public static final double kEncoderCPR = 42.0;
+    public static final double kGearing = 8.2424;
     public static final double kWheelDiameterMeters = 0.1524;
     public static final double kEncoderDistancePerPulse = 2.54 / 43.09861; 
     public static final double kEncoderPulsesPerMeter = 43.09861 / 2.54;
 
-    public static final double kTrackwidthMeters = 0.73369; // track width for impulse
+    public static final double kTrackwidthMeters = 0.676; // track width for impulse
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
     // public static final double enc_ToIn = 137.25 / (((5482.95 - 2949.08) + (4903.02 - 2375.024658)) / 2);
     // public static final double encToM = enc_ToIn * .0254;
 
-    public static final double ksVolts = 0.591; // s, v, a for impulse
-    public static final double kvVoltSecondsPerMeter = 0.00299;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.000438;
+    public static final double ksVolts = 0.218; // s, v, a for impulse
+    public static final double kvVoltSecondsPerMeter = 2.24;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.516;
 
-    public static final double kPDriveVel = 0.0293;
+    public static final double kPDriveVel = 0;
 
     public static final double kLeftP = 0.0294; // 0.146;
     public static final double kLeftI = 0;

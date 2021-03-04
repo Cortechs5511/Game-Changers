@@ -88,7 +88,7 @@ public class Cruise extends CommandBase {
     @Override
     
     public boolean isFinished() {
-        return ((count > 5000) || (m_shooter.getSpeed.get() < 1000)); // about 2
+        return ((count > 100) || (m_shooter.getSpeed.get() < 1000)); // about 2
         // seconds
         // of pause
         // or if

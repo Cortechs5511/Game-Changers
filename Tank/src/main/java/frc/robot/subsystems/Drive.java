@@ -100,6 +100,9 @@ public class Drive extends SubsystemBase {
 		leftEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
 		rightEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
 
+        leftEnc.setVelocityConversionFactor(1 / (DriveConstants.kGearing * DriveConstants.kEncoderCPR));
+        rightEnc.setVelocityConversionFactor(1 / (DriveConstants.kGearing * DriveConstants.kEncoderCPR));
+
 		leftNEOPID.setP(1000);
 		leftNEOPID.setI(DriveConstants.kLeftI);
 		leftNEOPID.setD(DriveConstants.kLeftD);
@@ -146,13 +149,14 @@ public class Drive extends SubsystemBase {
 	}
 
 	public void setOutput(double leftVolts, double rightVolts) { 
-		left0.setVoltage(leftVolts);
-		right0.setVoltage(rightVolts); 
+		left0.set(leftVolts / 9);
+		right0.set(rightVolts / 9); 
 	}
 
 	public void resetOdometry(Pose2d pose) {
 		resetLeftEnc();
 		resetRightEnc();
+        navx.reset();
 		m_odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
 	}
 

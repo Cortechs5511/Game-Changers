@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
+import frc.robot.commands.auto.groups.TowerSimple;
 import frc.robot.commands.shooter.Shoot;
 import frc.robot.commands.shooter.ShootAlign;
 import frc.robot.commands.shooter.StopShooter;
@@ -90,7 +90,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // An ExampleCommand will run in autonomous
-        return new WaitCommand(1);
+        return new TowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive, m_intake);
     }
 }

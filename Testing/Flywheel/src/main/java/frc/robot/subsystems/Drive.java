@@ -46,10 +46,10 @@ public class Drive extends SubsystemBase {
         left1.follow(left0);
         right1.follow(right0);
 
-        left0.setIdleMode(IdleMode.kBrake);
-        left1.setIdleMode(IdleMode.kBrake);
-        right0.setIdleMode(IdleMode.kBrake);
-        right1.setIdleMode(IdleMode.kBrake);
+        left0.setIdleMode(IdleMode.kCoast);
+        left1.setIdleMode(IdleMode.kCoast);
+        right0.setIdleMode(IdleMode.kCoast);
+        right1.setIdleMode(IdleMode.kCoast);
 
         left0.setInverted(false);
         left1.setInverted(false);
@@ -61,15 +61,15 @@ public class Drive extends SubsystemBase {
         right0.enableVoltageCompensation(9);
         right1.enableVoltageCompensation(9);
 
-        left0.setOpenLoopRampRate(0.2);
-        left1.setOpenLoopRampRate(0.2);
-        right0.setOpenLoopRampRate(0.2);
-        right1.setOpenLoopRampRate(0.2);
+        left0.setOpenLoopRampRate(1);
+        left1.setOpenLoopRampRate(1);
+        right0.setOpenLoopRampRate(1);
+        right1.setOpenLoopRampRate(1);
 
-        left0.setClosedLoopRampRate(0.2);
-        left1.setClosedLoopRampRate(0.2);
-        right0.setClosedLoopRampRate(0.2);
-        right1.setClosedLoopRampRate(0.2);
+        left0.setClosedLoopRampRate(1);
+        left1.setClosedLoopRampRate(1);
+        right0.setClosedLoopRampRate(1);
+        right1.setClosedLoopRampRate(1);
 
         left0.setSmartCurrentLimit(60, 60, 9000);
         left1.setSmartCurrentLimit(60, 60, 9000);
