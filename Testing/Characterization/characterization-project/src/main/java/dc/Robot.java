@@ -109,6 +109,8 @@ public class Robot extends TimedRobot {
     
       
       CANEncoder encoder = motor.getEncoder();
+      encoder.setPositionConversionFactor(1);
+      encoder.setVelocityConversionFactor(1);
 
 
 
