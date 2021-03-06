@@ -22,9 +22,9 @@ public final class Constants {
     // public static final double enc_ToIn = 137.25 / (((5482.95 - 2949.08) + (4903.02 - 2375.024658)) / 2);
     // public static final double encToM = enc_ToIn * .0254;
 
-    public static final double ksVolts = 0.218; // s, v, a for impulse
-    public static final double kvVoltSecondsPerMeter = 2.24;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.516;
+    public static final double ksVolts = 0.313; // s, v, a for impulse //ks from characterization old: 0.218
+    public static final double kvVoltSecondsPerMeter = 2.36; //kv from characterization old: 2.24
+    public static final double kaVoltSecondsSquaredPerMeter = 0.245;  //ks from characterization old: 0.516
 
     public static final double kPDriveVel = 0;
 

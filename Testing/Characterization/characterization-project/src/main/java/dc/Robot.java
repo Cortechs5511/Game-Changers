@@ -243,7 +243,7 @@ public class Robot extends TimedRobot {
     double leftPosition = leftEncoderPosition.get();
     double leftRate = leftEncoderRate.get();
 
-    double rightPosition = rightEncoderPosition.get();
+    double rightPosition = rightEncoderPosition.get() * -1 ; //invert for accurate reading
     double rightRate = rightEncoderRate.get();
 
     double battery = RobotController.getBatteryVoltage();
@@ -258,7 +258,7 @@ public class Robot extends TimedRobot {
 
     // command motors to do things
     drive.tankDrive(
-      (rotateEntry.getBoolean(false) ? -1 : 1) * autospeed, autospeed,
+      (rotateEntry.getBoolean(false) ? -1 : 1) * autospeed, autospeed, //is there an error here
       false
     );
 

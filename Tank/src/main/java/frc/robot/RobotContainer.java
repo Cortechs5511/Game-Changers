@@ -45,7 +45,6 @@ public class RobotContainer {
 
     private final StopShooter m_stopShooter = new StopShooter(m_shooter, m_limelight, m_feeder, m_drive);
     private final LightToggle m_lightToggle = new LightToggle(m_limelight);
-    private final StopDrive m_stop = new StopDrive(m_drive);
 
     private final TrajectoryFollower m_trajectoryFollower = new TrajectoryFollower(m_drive);
 
@@ -119,16 +118,21 @@ public class RobotContainer {
 		/*case TrenchSimple:
 			return new WaitCommand(1.0);*/
 		case PathA:
-			return PathA.getPathA(m_drive).andThen(new WaitCommand(5)).andThen(m_stop);
+			return PathA.getPathA(m_drive).andThen(new WaitCommand(5)).andThen(stop());
 		case Turn90:
-			return Turn90.getTurn90(m_drive).andThen(new WaitCommand(5)).andThen(m_stop);
+			return Turn90.getTurn90(m_drive).andThen(new WaitCommand(5)).andThen(stop());
 		default:
 			return new WaitCommand(1.0);
 
 		}
 	}
 
-	public void teleopInit(Robot robot) {
+	private Command stop() {
+        return new StopDrive(m_drive);
+    }
+
+
+    public void teleopInit(Robot robot) {
 		new Coast(m_drive);
 		if (robot.m_autonomousCommand != null) {
 			robot.m_autonomousCommand.cancel();

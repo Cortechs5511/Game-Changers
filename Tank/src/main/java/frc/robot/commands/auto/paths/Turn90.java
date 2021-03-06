@@ -40,7 +40,7 @@ public class Turn90 {
             new Pose2d(0, 0, new Rotation2d()),
             List.of(
 
-            new Translation2d(1, 1)),
+            new Translation2d(1, 1)), // list.of ends here
             new Pose2d(2, 2, new Rotation2d()),
 
             //new Translation2d(2.2098, -0.508),
@@ -48,7 +48,7 @@ public class Turn90 {
             //new Translation2d(4.4958, 1.016),
             //new Translation2d(6.0198, 0.254)),
             //new Pose2d(10, 0.254, new Rotation2d()),
-            config);
+            config); // trajectory ends here
 
 		RamseteCommand command = new RamseteCommand(turn90, m_drive::getPose,
 				new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
