@@ -10,216 +10,252 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.auto.TurnAngle;
 
 public class Drive extends SubsystemBase {
-	private CANSparkMax left0 = new CANSparkMax(DriveConstants.kLeftMotor0Port, MotorType.kBrushless);
-	private CANSparkMax left1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
+    private CANSparkMax left0 = new CANSparkMax(DriveConstants.kLeftMotor0Port, MotorType.kBrushless);
+    private CANSparkMax left1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
 
-	private CANSparkMax right0 = new CANSparkMax(DriveConstants.kRightMotor0Port, MotorType.kBrushless);
-	private CANSparkMax right1 = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
+    private CANSparkMax right0 = new CANSparkMax(DriveConstants.kRightMotor0Port, MotorType.kBrushless);
+    private CANSparkMax right1 = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
 
-	private CANPIDController leftNEOPID = left0.getPIDController();
-	private CANPIDController rightNEOPID = right0.getPIDController();
-	public PIDController anglePID = new PIDController(0.03, 0.04, 0.001);
+    private CANPIDController leftNEOPID = left0.getPIDController();
+    private CANPIDController rightNEOPID = right0.getPIDController();
+    public PIDController anglePID = new PIDController(0.03, 0.04, 0.001);
 
-	private CANEncoder leftEnc = left0.getEncoder();
-	private CANEncoder rightEnc = right0.getEncoder();
+    private CANEncoder leftEnc = left0.getEncoder();
+    private CANEncoder rightEnc = right0.getEncoder();
 
-	private AHRS navx = new AHRS();
-	public Boolean invert = false;
-	private double multiplier = 0.9;
+    private AHRS navx = new AHRS();
+    public Boolean invert = false;
+    private double multiplier = 0.9;
 
-	public Supplier<Double> getLeftOutput = () -> left0.get();
-	public Supplier<Double> getRightOutput = () -> right0.get();
+    public Supplier<Double> getLeftOutput = () -> left0.get();
+    public Supplier<Double> getRightOutput = () -> right0.get();
 
-	public Supplier<Double> getLeftPosition = () -> leftEnc.getPosition();
-	public Supplier<Double> getRightPosition = () -> rightEnc.getPosition();
+    public Supplier<Double> getLeftPosition = () -> leftEnc.getPosition();
+    public Supplier<Double> getRightPosition = () -> rightEnc.getPosition();
 
-	public Supplier<Double> getLeftVelocity = () -> leftEnc.getVelocity();
-	public Supplier<Double> getRightVelocity = () -> rightEnc.getVelocity();
+    public Supplier<Double> getLeftVelocity = () -> leftEnc.getVelocity();
+    public Supplier<Double> getRightVelocity = () -> rightEnc.getVelocity();
 
-	public Supplier<Double> getGyroAngle = () -> navx.getAngle();
-	public Supplier<Double> getMaxOutput = () -> multiplier;
+    public Supplier<Double> getGyroAngle = () -> navx.getAngle();
+    public Supplier<Double> getMaxOutput = () -> multiplier;
 
-	//private double angle_kP, angle_kI, angle_kD;
-	private final DifferentialDriveOdometry m_odometry;
+    // private double angle_kP, angle_kI, angle_kD;
+    private final DifferentialDriveOdometry m_odometry;
 
-	public Drive() {
-		left0.clearFaults();
-		left1.clearFaults();
-		right0.clearFaults();
-		right1.clearFaults();
+    // testing only
+    double previousLeftPosition, previousRightPosition;
+    double previousTime;
 
-		left0.restoreFactoryDefaults();
-		left1.restoreFactoryDefaults();
-		right0.restoreFactoryDefaults();
-		right1.restoreFactoryDefaults();
+    private final Field2d m_fieldSim = new Field2d();
 
-		left1.follow(left0);
-		right1.follow(right0);
 
-		left0.setIdleMode(IdleMode.kBrake);
-		left1.setIdleMode(IdleMode.kBrake);
-		right0.setIdleMode(IdleMode.kBrake);
-		right1.setIdleMode(IdleMode.kBrake);
+    public Drive() {
+        left0.clearFaults();
+        left1.clearFaults();
+        right0.clearFaults();
+        right1.clearFaults();
 
-		left0.setInverted(false);
-		left1.setInverted(false);
-		right0.setInverted(true);
-		right1.setInverted(true);
-		// false, false, true, true
+        left0.restoreFactoryDefaults();
+        left1.restoreFactoryDefaults();
+        right0.restoreFactoryDefaults();
+        right1.restoreFactoryDefaults();
 
-		left0.enableVoltageCompensation(9);
-		left1.enableVoltageCompensation(9);
-		right0.enableVoltageCompensation(9);
-		right1.enableVoltageCompensation(9);
+        left1.follow(left0);
+        right1.follow(right0);
 
-		left0.setOpenLoopRampRate(0.2);
-		left1.setOpenLoopRampRate(0.2);
-		right0.setOpenLoopRampRate(0.2);
-		right1.setOpenLoopRampRate(0.2);
+        left0.setIdleMode(IdleMode.kBrake);
+        left1.setIdleMode(IdleMode.kBrake);
+        right0.setIdleMode(IdleMode.kBrake);
+        right1.setIdleMode(IdleMode.kBrake);
 
-		left0.setClosedLoopRampRate(0.2); // still to be tested
-		left1.setClosedLoopRampRate(0.2);
-		right0.setClosedLoopRampRate(0.2);
-		right1.setClosedLoopRampRate(0.2);
+        left0.setInverted(false);
+        left1.setInverted(false);
+        right0.setInverted(true);
+        right1.setInverted(true);
+        // false, false, true, true
 
-		left0.setSmartCurrentLimit(60, 60, 9000);
-		left1.setSmartCurrentLimit(60, 60, 9000);
-		right0.setSmartCurrentLimit(60, 60, 9000);
-		right1.setSmartCurrentLimit(60, 60, 9000);
+        left0.enableVoltageCompensation(9);
+        left1.enableVoltageCompensation(9);
+        right0.enableVoltageCompensation(9);
+        right1.enableVoltageCompensation(9);
 
-		leftEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-		rightEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+        left0.setOpenLoopRampRate(0.2);
+        left1.setOpenLoopRampRate(0.2);
+        right0.setOpenLoopRampRate(0.2);
+        right1.setOpenLoopRampRate(0.2);
 
-        leftEnc.setVelocityConversionFactor(1 / (DriveConstants.kGearing * DriveConstants.kEncoderCPR));
-        rightEnc.setVelocityConversionFactor(1 / (DriveConstants.kGearing * DriveConstants.kEncoderCPR));
+        left0.setClosedLoopRampRate(0.2); // still to be tested
+        left1.setClosedLoopRampRate(0.2);
+        right0.setClosedLoopRampRate(0.2);
+        right1.setClosedLoopRampRate(0.2);
 
-		leftNEOPID.setP(1000);
-		leftNEOPID.setI(DriveConstants.kLeftI);
-		leftNEOPID.setD(DriveConstants.kLeftD);
-		leftNEOPID.setFF(DriveConstants.kLeftFF);
-		leftNEOPID.setOutputRange(-0.4, 0.4);
+        left0.setSmartCurrentLimit(60, 60, 9000);
+        left1.setSmartCurrentLimit(60, 60, 9000);
+        right0.setSmartCurrentLimit(60, 60, 9000);
+        right1.setSmartCurrentLimit(60, 60, 9000);
 
-		rightNEOPID.setP(1000);
-		rightNEOPID.setI(DriveConstants.kRightI);
-		rightNEOPID.setD(DriveConstants.kRightD);
-		rightNEOPID.setFF(DriveConstants.kRightFF);
-		rightNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
+        leftEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+        rightEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
 
-		anglePID.disableContinuousInput();
-		anglePID.setIntegratorRange(-1, 1);
+        leftEnc.setVelocityConversionFactor((DriveConstants.kWheelDiameterMeters * Math.PI)
+                / (DriveConstants.kGearing * DriveConstants.kEncoderCPR));
+        rightEnc.setVelocityConversionFactor((DriveConstants.kWheelDiameterMeters * Math.PI)
+                / (DriveConstants.kGearing * DriveConstants.kEncoderCPR));
 
-		/*SmartDashboard.putNumber("Angle P", 0.03);
-		SmartDashboard.putNumber("Angle I", 0.04);
-		SmartDashboard.putNumber("Angle D", 0.001);
-		SmartDashboard.putNumber("Threshold", 0.5);*/
+        leftNEOPID.setP(1000);
+        leftNEOPID.setI(DriveConstants.kLeftI);
+        leftNEOPID.setD(DriveConstants.kLeftD);
+        leftNEOPID.setFF(DriveConstants.kLeftFF);
+        leftNEOPID.setOutputRange(-0.4, 0.4);
 
-		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-		
-		
-	}
+        rightNEOPID.setP(1000);
+        rightNEOPID.setI(DriveConstants.kRightI);
+        rightNEOPID.setD(DriveConstants.kRightD);
+        rightNEOPID.setFF(DriveConstants.kRightFF);
+        rightNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
 
-	public void setLeft(double leftInput) {
-		left0.set(leftInput);
-	}
+        anglePID.disableContinuousInput();
+        anglePID.setIntegratorRange(-1, 1);
 
-	public void setRight(double rightInput) {
-		right0.set(rightInput);
-	}
+        /*
+         * SmartDashboard.putNumber("Angle P", 0.03);
+         * SmartDashboard.putNumber("Angle I", 0.04);
+         * SmartDashboard.putNumber("Angle D", 0.001);
+         * SmartDashboard.putNumber("Threshold", 0.5);
+         */
 
-	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-		return new DifferentialDriveWheelSpeeds(leftEnc.getVelocity(), rightEnc.getVelocity());
-	}
+        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+        SmartDashboard.putData("Field", m_fieldSim);
+    }
 
-	public double getHeading() {
-		return Math.IEEEremainder(navx.getAngle(), 360);
-	}
+    public void setLeft(double leftInput) {
+        left0.set(leftInput);
+    }
 
-	public Pose2d getPose() {
-		return m_odometry.getPoseMeters();
-	}
+    public void setRight(double rightInput) {
+        right0.set(rightInput);
+    }
 
-	public void setOutput(double leftVolts, double rightVolts) { 
-		left0.set(leftVolts / 9);
-		right0.set(rightVolts / 9); 
-	}
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(leftEnc.getVelocity(), rightEnc.getVelocity());
+    }
 
-	public void resetOdometry(Pose2d pose) {
-		resetLeftEnc();
-		resetRightEnc();
+    public double getHeading() {
+        return Math.IEEEremainder(navx.getAngle(), 360);
+    }
+
+    public Pose2d getPose() {
+        return m_odometry.getPoseMeters();
+    }
+
+    public void setOutput(double leftVolts, double rightVolts) {
+        left0.set(leftVolts / 9);
+        right0.set(rightVolts / 9);
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        resetLeftEnc();
+        resetRightEnc();
         navx.reset();
-		m_odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
-	}
+        m_odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+    }
 
-	public void setLeftPIDReference(double ref) {
-		leftNEOPID.setReference(ref, ControlType.kPosition);
-	}
+    public void setLeftPIDReference(double ref) {
+        leftNEOPID.setReference(ref, ControlType.kPosition);
+    }
 
-	public void setRightPIDReference(double ref) {
-		rightNEOPID.setReference(ref, ControlType.kPosition);
-	}
+    public void setRightPIDReference(double ref) {
+        rightNEOPID.setReference(ref, ControlType.kPosition);
+    }
 
-	public void resetLeftEnc() {
-		leftEnc.setPosition(0);
-	}
+    public void resetLeftEnc() {
+        leftEnc.setPosition(0);
+    }
 
-	public void resetRightEnc() {
-		rightEnc.setPosition(0);
-	}
+    public void resetRightEnc() {
+        rightEnc.setPosition(0);
+    }
 
-	@Override
-	public void periodic() {
-		SmartDashboard.putNumber("Left Speed", leftEnc.getVelocity());
-		SmartDashboard.putNumber("Right Speed", rightEnc.getVelocity());
+    @Override
+    public void periodic() {
+        double leftVelocity = leftEnc.getVelocity();
+        double rightVelocity = rightEnc.getVelocity();
 
-		SmartDashboard.putNumber("Left Position", leftEnc.getPosition());
-		SmartDashboard.putNumber("Right Position", rightEnc.getPosition());
+        SmartDashboard.putNumber("Drive/Left Speed", leftVelocity);
+        SmartDashboard.putNumber("Drive/Right Speed", rightVelocity);
 
-		SmartDashboard.putNumber("Left Power", left0.getAppliedOutput());
-		SmartDashboard.putNumber("Right Power", right0.getAppliedOutput());
+        double currentTime = Timer.getFPGATimestamp();
+        double leftPosition = leftEnc.getPosition();
+        double rightPosition = rightEnc.getPosition();
 
-		SmartDashboard.putNumber("NavX Angle", navx.getAngle());
+        double computedLeftVelocity = (leftPosition - previousLeftPosition) / (currentTime - previousTime);
+        double computedRightVelocity = (rightPosition - previousRightPosition) / (currentTime - previousTime);
 
-		/*angle_kP = SmartDashboard.getNumber("Angle P", 0.03);
-		angle_kI = SmartDashboard.getNumber("Angle I", 0.04);
-		angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
-		anglePID.setPID(angle_kP, angle_kI, angle_kD);*/
+        SmartDashboard.putNumber("Drive/Left Computed Velocity", computedLeftVelocity);
+        SmartDashboard.putNumber("Drive/Right Computed Velocity", computedRightVelocity);
 
-		m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEnc.getPosition(), rightEnc.getPosition());
-	}
+        SmartDashboard.putNumber("Drive/Left Computed - Empirical", computedLeftVelocity - leftVelocity);
+        SmartDashboard.putNumber("Drive/Right Computed - Empirical", computedRightVelocity - rightVelocity);
 
-	public boolean getDirection() {
-		return invert;
-	}
+        previousTime = currentTime;
+        previousLeftPosition = leftPosition;
+        previousRightPosition = rightPosition;
 
-	public void setDirection(boolean b) {
-		invert = b;
-	}
+        SmartDashboard.putNumber("Left Position", leftPosition);
+        SmartDashboard.putNumber("Right Position", rightPosition);
 
-	public void setMaxOutput(double limit) {
-		multiplier = limit;
-	}
+        SmartDashboard.putNumber("Left Power", left0.getAppliedOutput());
+        SmartDashboard.putNumber("Right Power", right0.getAppliedOutput());
 
-	public void setBrake() {
-		left0.setIdleMode(IdleMode.kBrake);
-		left1.setIdleMode(IdleMode.kBrake);
-		right0.setIdleMode(IdleMode.kBrake);
-		right1.setIdleMode(IdleMode.kBrake);
-	}
+        SmartDashboard.putNumber("NavX Angle", navx.getAngle());
+        m_fieldSim.setRobotPose(m_odometry.getPoseMeters());
 
-	public void setCoast() {
-		left0.setIdleMode(IdleMode.kCoast);
-		left1.setIdleMode(IdleMode.kCoast);
-		right0.setIdleMode(IdleMode.kCoast);
-		right1.setIdleMode(IdleMode.kCoast);
-	}
+        /*
+         * angle_kP = SmartDashboard.getNumber("Angle P", 0.03); angle_kI =
+         * SmartDashboard.getNumber("Angle I", 0.04); angle_kD =
+         * SmartDashboard.getNumber("Angle D", 0.001); anglePID.setPID(angle_kP,
+         * angle_kI, angle_kD);
+         */
+
+        m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEnc.getPosition(), rightEnc.getPosition());
+    }
+
+    public boolean getDirection() {
+        return invert;
+    }
+
+    public void setDirection(boolean b) {
+        invert = b;
+    }
+
+    public void setMaxOutput(double limit) {
+        multiplier = limit;
+    }
+
+    public void setBrake() {
+        left0.setIdleMode(IdleMode.kBrake);
+        left1.setIdleMode(IdleMode.kBrake);
+        right0.setIdleMode(IdleMode.kBrake);
+        right1.setIdleMode(IdleMode.kBrake);
+    }
+
+    public void setCoast() {
+        left0.setIdleMode(IdleMode.kCoast);
+        left1.setIdleMode(IdleMode.kCoast);
+        right0.setIdleMode(IdleMode.kCoast);
+        right1.setIdleMode(IdleMode.kCoast);
+    }
 }
