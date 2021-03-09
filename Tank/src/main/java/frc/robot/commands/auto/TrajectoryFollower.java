@@ -21,14 +21,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 
 public class TrajectoryFollower extends CommandBase {
-	private Drive m_drive;
-
-	public TrajectoryFollower(Drive drive) {
-		m_drive = drive;
-		addRequirements(m_drive);
-	}
-
-	public RamseteCommand getPath(String trajectoryJSON) {
+	public static RamseteCommand getPath(String trajectoryJSON, Drive m_drive) {
 		DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
 				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
 						DriveConstants.kaVoltSecondsSquaredPerMeter),

@@ -32,6 +32,7 @@ public class RobotContainer {
 
     private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
     private final SetIntakePower m_setIntakePower = new SetIntakePower(m_intake, m_drive);
+    private final AutoCollect m_autoCollect = new AutoCollect(m_intake, m_feeder);
     private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
     private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
 
@@ -45,8 +46,6 @@ public class RobotContainer {
 
     private final StopShooter m_stopShooter = new StopShooter(m_shooter, m_limelight, m_feeder, m_drive);
     private final LightToggle m_lightToggle = new LightToggle(m_limelight);
-
-    private final TrajectoryFollower m_trajectoryFollower = new TrajectoryFollower(m_drive);
 
     Joystick leftStick = new Joystick(0);
     Joystick rightStick = new Joystick(1);
@@ -118,7 +117,7 @@ public class RobotContainer {
 		/*case TrenchSimple:
 			return new WaitCommand(1.0);*/
 		case PathA:
-			return PathA.getPathA(m_drive).andThen(new WaitCommand(5)).andThen(stop());
+            return m_autoCollect.andThen(TrajectoryFollower.getPath("paths/Red.path", m_drive).andThen(stop()));
 		case Turn90:
 			return Turn90.getTurn90(m_drive).andThen(new WaitCommand(5)).andThen(stop());
 		default:
