@@ -1,15 +1,12 @@
 package frc.robot.subsystems;
 
-import java.util.function.Supplier;
-
-import com.revrobotics.CANEncoder;
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
-
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -20,46 +17,38 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.auto.TurnAngle;
+
+import java.util.function.Supplier;
 
 public class Drive extends SubsystemBase {
-    private CANSparkMax left0 = new CANSparkMax(DriveConstants.kLeftMotor0Port, MotorType.kBrushless);
-    private CANSparkMax left1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
+    private final CANSparkMax left0 = new CANSparkMax(DriveConstants.kLeftMotor0Port, MotorType.kBrushless);
+    private final CANSparkMax left1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
 
-    private CANSparkMax right0 = new CANSparkMax(DriveConstants.kRightMotor0Port, MotorType.kBrushless);
-    private CANSparkMax right1 = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
+    private final CANSparkMax right0 = new CANSparkMax(DriveConstants.kRightMotor0Port, MotorType.kBrushless);
+    private final CANSparkMax right1 = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
 
-    private CANPIDController leftNEOPID = left0.getPIDController();
-    private CANPIDController rightNEOPID = right0.getPIDController();
-    public PIDController anglePID = new PIDController(0.03, 0.04, 0.001);
-
-    private CANEncoder leftEnc = left0.getEncoder();
-    private CANEncoder rightEnc = right0.getEncoder();
-
-    private AHRS navx = new AHRS();
-    public Boolean invert = false;
-    private double multiplier = 0.9;
-
-    public Supplier<Double> getLeftOutput = () -> left0.get();
-    public Supplier<Double> getRightOutput = () -> right0.get();
-
-    public Supplier<Double> getLeftPosition = () -> leftEnc.getPosition();
-    public Supplier<Double> getRightPosition = () -> rightEnc.getPosition();
-
-    public Supplier<Double> getLeftVelocity = () -> leftEnc.getVelocity();
-    public Supplier<Double> getRightVelocity = () -> rightEnc.getVelocity();
-
-    public Supplier<Double> getGyroAngle = () -> navx.getAngle();
-    public Supplier<Double> getMaxOutput = () -> multiplier;
-
+    private final CANPIDController leftNEOPID = left0.getPIDController();
+    private final CANPIDController rightNEOPID = right0.getPIDController();
+    private final CANEncoder leftEnc = left0.getEncoder();
+    private final CANEncoder rightEnc = right0.getEncoder();
+    private final AHRS navx = new AHRS();
     // private double angle_kP, angle_kI, angle_kD;
     private final DifferentialDriveOdometry m_odometry;
-
+    private final Field2d m_fieldSim = new Field2d();
+    public PIDController anglePID = new PIDController(0.03, 0.04, 0.001);
+    public Boolean invert = false;
+    public Supplier<Double> getLeftOutput = left0::get;
+    public Supplier<Double> getRightOutput = right0::get;
+    public Supplier<Double> getLeftPosition = leftEnc::getPosition;
+    public Supplier<Double> getRightPosition = rightEnc::getPosition;
+    public Supplier<Double> getLeftVelocity = leftEnc::getVelocity;
+    public Supplier<Double> getRightVelocity = rightEnc::getVelocity;
+    public Supplier<Double> getGyroAngle = navx::getAngle;
     // testing only
     double previousLeftPosition, previousRightPosition;
     double previousTime;
-
-    private final Field2d m_fieldSim = new Field2d();
+    private double multiplier = 0.9;
+    public Supplier<Double> getMaxOutput = () -> multiplier;
 
 
     public Drive() {
@@ -214,11 +203,11 @@ public class Drive extends SubsystemBase {
         previousLeftPosition = leftPosition;
         previousRightPosition = rightPosition;
 
-        SmartDashboard.putNumber("Left Position", leftPosition);
-        SmartDashboard.putNumber("Right Position", rightPosition);
+        SmartDashboard.putNumber("Drive/Left Position", leftPosition);
+        SmartDashboard.putNumber("Drive/Right Position", rightPosition);
 
-        SmartDashboard.putNumber("Left Power", left0.getAppliedOutput());
-        SmartDashboard.putNumber("Right Power", right0.getAppliedOutput());
+        SmartDashboard.putNumber("Drive/Left Power", left0.getAppliedOutput());
+        SmartDashboard.putNumber("Drive/Right Power", right0.getAppliedOutput());
 
         SmartDashboard.putNumber("NavX Angle", navx.getAngle());
         m_fieldSim.setRobotPose(m_odometry.getPoseMeters());

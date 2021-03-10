@@ -5,10 +5,10 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 
 public class AutoCollect extends CommandBase {
-	private Intake m_intake;
-	private Feeder m_feeder;
+	private final Intake m_intake;
+	private final Feeder m_feeder;
 
-	private double polySpeed, blackSpeed, greenSpeed;
+	private double polySpeed;
 
 	public AutoCollect(Intake intake, Feeder feeder) {
 		m_intake = intake;
@@ -31,8 +31,8 @@ public class AutoCollect extends CommandBase {
 		boolean green = !m_feeder.getGreenSensor.get();
 		boolean black = !m_feeder.getBlackSensor.get();
 
-		blackSpeed = 0.7;
-		greenSpeed = 0.6;
+		double blackSpeed = 0.7;
+		double greenSpeed = 0.6;
 
 		if (top && bottom && black && green) { // 1111
 			polySpeed = 0; // poly off

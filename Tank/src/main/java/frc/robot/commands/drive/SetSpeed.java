@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetSpeed extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private OI m_oi = OI.getInstance();
+	private final OI m_oi = OI.getInstance();
 	private double leftInput, rightInput, leftOutput, rightOutput;
-	private Drive m_drive;
+	private final Drive m_drive;
 
 	public SetSpeed(Drive drive) {
 		m_drive = drive;
@@ -35,7 +35,7 @@ public class SetSpeed extends CommandBase {
 			rightOutput = 0;
 		}
 
-		if (m_drive.invert == false) {
+		if (!m_drive.invert) {
 			m_drive.setLeft(leftOutput);
 			m_drive.setRight(rightOutput);
 		} else {

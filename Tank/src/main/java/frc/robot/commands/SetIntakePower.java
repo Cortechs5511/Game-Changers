@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetIntakePower extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private Intake m_intake;
-	private Drive m_drive;
-	private OI m_oi = OI.getInstance();
+	private final Intake m_intake;
+	private final Drive m_drive;
+	private final OI m_oi = OI.getInstance();
 
 	public SetIntakePower(Intake intake, Drive drive) {
 		m_intake = intake;

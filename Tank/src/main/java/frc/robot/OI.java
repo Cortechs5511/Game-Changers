@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 public class OI {
 	private static OI oi;
 
-	private Joystick leftStick = new Joystick(0);
-	private Joystick rightStick = new Joystick(1);
-	private XboxController controller = new XboxController(2);
+	private final Joystick leftStick = new Joystick(0);
+	private final Joystick rightStick = new Joystick(1);
+	private final XboxController controller = new XboxController(2);
 
-	public Supplier<Double> getLeftY = () -> leftStick.getY();
-	public Supplier<Double> getRightY = () -> rightStick.getY();
+	public Supplier<Double> getLeftY = leftStick::getY;
+	public Supplier<Double> getRightY = rightStick::getY;
 
 	public Supplier<Boolean> getWristUp = () -> Math.abs(controller.getRawAxis(2)) > 0.5;
 	public Supplier<Boolean> getWristDown = () -> Math.abs(controller.getRawAxis(3)) > 0.5;

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drive;
 
 public class StopDrive extends InstantCommand {
-	private Drive m_drive;
+	private final Drive m_drive;
 
 	public StopDrive(Drive drive) {
 		m_drive = drive;

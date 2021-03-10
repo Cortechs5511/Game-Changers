@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetFeederPower extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private Feeder m_feeder;
-	private OI m_oi = OI.getInstance();
-	private double polySpeed, blackSpeed, greenSpeed;
+	private final Feeder m_feeder;
+	private final OI m_oi = OI.getInstance();
+	private double polySpeed;
 
 	public SetFeederPower(Feeder feeder) {
 		m_feeder = feeder;
@@ -29,6 +29,8 @@ public class SetFeederPower extends CommandBase {
 
 		boolean intaking = m_oi.getIntake.get();
 
+		double blackSpeed;
+		double greenSpeed;
 		if (intaking) {
 			blackSpeed = 0.7;
 			greenSpeed = 0.6;

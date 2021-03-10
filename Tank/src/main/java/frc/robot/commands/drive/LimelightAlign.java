@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LimelightAlign extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private Drive m_drive;
-	private Limelight m_limelight;
+	private final Drive m_drive;
+	private final Limelight m_limelight;
 	private double val;
 	private double input;
 	private double threshold = 0.5;
@@ -55,10 +55,6 @@ public class LimelightAlign extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		if ((Math.abs(input) < threshold) && (m_drive.getLeftVelocity.get() < 30) && (m_drive.getRightVelocity.get() < 30)) {
-			return true;
-		} else {
-			return false;
-		}
+		return (Math.abs(input) < threshold) && (m_drive.getLeftVelocity.get() < 30) && (m_drive.getRightVelocity.get() < 30);
 	}
 }

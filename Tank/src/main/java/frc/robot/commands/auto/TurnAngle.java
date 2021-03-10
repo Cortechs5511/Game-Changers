@@ -5,10 +5,12 @@ import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TurnAngle extends CommandBase {
-	private Drive m_drive;
+	private final Drive m_drive;
 
-	private double startingAngle, val, input, setpoint;
-	private double threshold;
+	private double startingAngle;
+	private double input;
+	private final double setpoint;
+	private final double threshold;
 
 	public TurnAngle(double set, double error, Drive drive) {
 		threshold = error;
@@ -26,7 +28,7 @@ public class TurnAngle extends CommandBase {
 	public void execute() {
 		input = m_drive.getHeading() - startingAngle;
 
-		val = m_drive.anglePID.calculate(input, setpoint);
+		double val = m_drive.anglePID.calculate(input, setpoint);
 
 		if (Math.abs(val) > 0.35) {
 			val = (0.35 * val / Math.abs(val));
@@ -46,10 +48,6 @@ public class TurnAngle extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		if ((Math.abs(input) < threshold) && (m_drive.getLeftVelocity.get() < 30) && (m_drive.getRightVelocity.get() < 30)) {
-			return true;
-		} else {
-			return false;
-		}
+		return (Math.abs(input) < threshold) && (m_drive.getLeftVelocity.get() < 30) && (m_drive.getRightVelocity.get() < 30);
 	}
 }

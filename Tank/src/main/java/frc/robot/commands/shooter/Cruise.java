@@ -10,18 +10,18 @@ import frc.robot.subsystems.Limelight;
 
 public class Cruise extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private Shooter m_shooter;
-	private Feeder m_feeder;
-	private Intake m_intake;
-    private Limelight m_limelight;
+	private final Shooter m_shooter;
+	private final Feeder m_feeder;
+	private final Intake m_intake;
+    private final Limelight m_limelight;
      
 	private double target;
 
-	private OI m_oi = OI.getInstance();
+	private final OI m_oi = OI.getInstance();
 
 	private int count = 0;
 	private int feedCount = 0;
-	private int threshold;
+	private final int threshold;
 
 	public Cruise(int feedThreshold, Shooter shooter, Feeder feeder, Limelight limelight, Intake intake) {
 		threshold = feedThreshold;

@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AccelAlign extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private Drive m_drive;
-	private Limelight m_limelight;
-	private Shooter m_shooter;
-	private OI m_oi = OI.getInstance();
+	private final Drive m_drive;
+	private final Limelight m_limelight;
+	private final Shooter m_shooter;
+	private final OI m_oi = OI.getInstance();
 
 	private double val, input, currentSpeed, calculatedSpeed;
-	private double threshold;
+	private final double threshold;
 	private int count = 0;
 
 	public AccelAlign(double limeThreshold, Drive drive, Limelight limelight, Shooter shooter) {

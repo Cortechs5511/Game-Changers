@@ -104,9 +104,6 @@ public class RobotContainer {
 
         new JoystickButton(rightStick, 4).whenPressed(() -> m_drive.setMaxOutput(0.25))
                 .whenReleased(() -> m_drive.setMaxOutput(0.9));
-
-        SmartDashboard.putData("Stop Shooting", m_stopShooter);
-        SmartDashboard.putData("Record", new DataRecorder(m_drive));
     }
 
     public Command getAutonomousCommand() {

@@ -15,7 +15,7 @@ public class DataRecorder extends CommandBase {
 	private int row = 0;
 	private int col = 0;
 	private boolean check = false;
-	private Timer time = new edu.wpi.first.wpilibj.Timer();
+	private final Timer time = new edu.wpi.first.wpilibj.Timer();
 
 	public DataRecorder(Drive drive) {
 	}
@@ -32,7 +32,7 @@ public class DataRecorder extends CommandBase {
 		if (m_drive.getLeftOutput.get() != 0 || m_drive.getRightOutput.get() != 0) {
 			check = true;
 		}
-		if (check == true) {
+		if (check) {
 			col = 0;
 			data[row][col++] = m_drive.getLeftVelocity.get();
 			data[row][col++] = m_drive.getRightVelocity.get();
@@ -48,11 +48,7 @@ public class DataRecorder extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		if (row >= MAX_ROWS) {
-			return true;
-		} else {
-			return false;
-		}
+		return row >= MAX_ROWS;
 	}
 
 	@Override

@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Accel extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private Shooter m_shooter;
-	private OI m_oi = OI.getInstance();
-	private Limelight m_limelight;
+	private final Shooter m_shooter;
+	private final OI m_oi = OI.getInstance();
+	private final Limelight m_limelight;
 	private double currentSpeed, calculatedRPM;
 	private int count = 0;
 

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Limelight;
 
 public class LightOn extends InstantCommand {
-	private Limelight m_limelight;
+	private final Limelight m_limelight;
 
 	public LightOn(Limelight limelight) {
 		m_limelight = limelight;
