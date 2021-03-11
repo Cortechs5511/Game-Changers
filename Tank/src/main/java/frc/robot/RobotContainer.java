@@ -32,7 +32,6 @@ public class RobotContainer {
 
     private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
     private final SetIntakePower m_setIntakePower = new SetIntakePower(m_intake, m_drive);
-    private final AutoCollect m_autoCollect = new AutoCollect(m_intake, m_feeder);
     private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
     private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
 
@@ -107,6 +106,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
+        
         m_drive.resetOdometry(new Pose2d());
 		switch (m_chooser.getSelected()) {
 		case TowerSimple:
@@ -114,7 +114,7 @@ public class RobotContainer {
 		/*case TrenchSimple:
 			return new WaitCommand(1.0);*/
 		case PathA:
-            return m_autoCollect.andThen(TrajectoryFollower.getPath("paths/Red.path", m_drive).andThen(stop()));
+            return new AutoCollect(m_intake, m_feeder).alongWith(PathA.getPathA(m_drive).andThen(stop()));
 		case Turn90:
 			return Turn90.getTurn90(m_drive).andThen(new WaitCommand(5)).andThen(stop());
 		default:
@@ -124,12 +124,13 @@ public class RobotContainer {
 	}
 
 	private Command stop() {
-        return new StopDrive(m_drive);
+        return new StopDrive(m_drive);ew
     }
 
 
     public void teleopInit(Robot robot) {
-		new Coast(m_drive);
+        m_drive.resetLeftEnc();
+        m_drive.resetRightEnc();
 		if (robot.m_autonomousCommand != null) {
 			robot.m_autonomousCommand.cancel();
 		}

@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 public final class Constants {
     public static final class DriveConstants {
-        public static final int kLeftMotor0Port = 20;
-        public static final int kLeftMotor1Port = 21;
-        public static final int kRightMotor0Port = 10;
-        public static final int kRightMotor1Port = 11;
+        public static final int kLeftMotor0Port = 10;
+        public static final int kLeftMotor1Port = 11;
+        public static final int kRightMotor0Port = 20;
+        public static final int kRightMotor1Port = 21;
 
         public static final double kEncoderCPR = 42.0;
         public static final double kGearing = 8.2424;
@@ -26,7 +26,7 @@ public final class Constants {
         public static final double kvVoltSecondsPerMeter = 2.36; //kv from characterization old: 2.24
         public static final double kaVoltSecondsSquaredPerMeter = 0.245;  //ks from characterization old: 0.516
 
-        public static final double kPDriveVel = 0;
+        public static final double kPDriveVel = 0.02;
 
         public static final double kLeftP = 0.0294; // 0.146;
         public static final double kLeftI = 0;
@@ -62,11 +62,10 @@ public final class Constants {
         public static final int kShoot0Port = 50;
         public static final int kShoot1Port = 51;
 
-        public static final double kShootP = 0.000275; // not implemented yet pending final testing
+        public static final double kShootP = 0.00025;
         public static final double kShootI = 0;
-        public static final double kShootD = 0.008;
-        public static final double kShootFF = 0.000202;
-
+        public static final double kShootD = 0;
+        public static final double kShootFF = 0.000199;
     }
 
     public static final class ClimberConstants {
@@ -81,8 +80,8 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxSpeedMetersPerSecond = 2;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 2;
 
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;

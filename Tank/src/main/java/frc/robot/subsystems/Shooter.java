@@ -56,11 +56,6 @@ public class Shooter extends SubsystemBase {
         shootPID.setD(ShooterConstants.kShootD);
         shootPID.setFF(ShooterConstants.kShootFF);
 
-        SmartDashboard.putNumber("Shooter/Shooter P", ShooterConstants.kShootP);
-        SmartDashboard.putNumber("Shooter/Shooter I", ShooterConstants.kShootI);
-        SmartDashboard.putNumber("Shooter/Shooter D", ShooterConstants.kShootD);
-        SmartDashboard.putNumber("Shooter/Shooter FF", ShooterConstants.kShootFF);
-
         SmartDashboard.putNumber("Shooter/RPM Adjustment", 0);
     }
 
@@ -81,11 +76,6 @@ public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-        shootPID.setP(SmartDashboard.getNumber("Shooter/Shooter P", ShooterConstants.kShootP));
-        shootPID.setI(SmartDashboard.getNumber("Shooter/Shooter I", ShooterConstants.kShootI));
-        shootPID.setD(SmartDashboard.getNumber("Shooter/Shooter D", ShooterConstants.kShootD));
-        shootPID.setFF(SmartDashboard.getNumber("Shooter/Shooter FF", ShooterConstants.kShootFF));
-
         SmartDashboard.putNumber("Shooter/Shooter RPM", shootEnc.getVelocity());
         SmartDashboard.putNumber("Shooter/Shooter Output", shoot0.get());
     }

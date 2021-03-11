@@ -74,7 +74,6 @@ public class Drive extends SubsystemBase {
         left1.setInverted(false);
         right0.setInverted(true);
         right1.setInverted(true);
-        // false, false, true, true
 
         left0.enableVoltageCompensation(9);
         left1.enableVoltageCompensation(9);

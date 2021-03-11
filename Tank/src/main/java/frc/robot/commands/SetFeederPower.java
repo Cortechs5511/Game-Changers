@@ -68,11 +68,11 @@ public class SetFeederPower extends CommandBase {
 		}
 
 		if (m_oi.getIntakeBackFeed.get()) {
-			blackSpeed = -0.6;
+			blackSpeed = -0.9;
 			greenSpeed = -0.6;
 		}
 		if (m_oi.getBeltBackFeed.get()) {
-			polySpeed = -0.4;
+			polySpeed = -0.35;
 		}
 		m_feeder.setFeederSpeed(polySpeed); // poly
 		m_feeder.setFeeder2Speed(blackSpeed); // black
