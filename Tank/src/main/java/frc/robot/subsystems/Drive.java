@@ -50,7 +50,6 @@ public class Drive extends SubsystemBase {
     private double multiplier = 0.9;
     public Supplier<Double> getMaxOutput = () -> multiplier;
 
-
     public Drive() {
         left0.clearFaults();
         left1.clearFaults();
@@ -202,6 +201,7 @@ public class Drive extends SubsystemBase {
         previousLeftPosition = leftPosition;
         previousRightPosition = rightPosition;
 
+        
         SmartDashboard.putNumber("Drive/Left Position", leftPosition);
         SmartDashboard.putNumber("Drive/Right Position", rightPosition);
 

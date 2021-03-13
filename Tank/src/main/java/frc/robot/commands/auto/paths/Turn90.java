@@ -40,14 +40,13 @@ public class Turn90 {
             new Pose2d(0, 0, new Rotation2d()),
             List.of(
 
-            new Translation2d(1, 1)), // list.of ends here
-            new Pose2d(2, 2, new Rotation2d()),
+            //new Translation2d(0.5, 0.5)), // list.of ends here
+            //new Pose2d(1, 1, new Rotation2d()),
 
-            //new Translation2d(2.2098, -0.508),
-            //new Translation2d(3.7338, -1.27),
-            //new Translation2d(4.4958, 1.016),
-            //new Translation2d(6.0198, 0.254)),
-            //new Pose2d(10, 0.254, new Rotation2d()),
+            new Translation2d(1.525, 0),
+            new Translation2d(3.05, 0),
+            new Translation2d(1.525, 2.1336)),
+            new Pose2d(1.525, 0, new Rotation2d()),
             config); // trajectory ends here
 
 		RamseteCommand command = new RamseteCommand(turn90, m_drive::getPose,
@@ -56,8 +55,8 @@ public class Turn90 {
 						DriveConstants.kaVoltSecondsSquaredPerMeter),
 				DriveConstants.kDriveKinematics, 
 				m_drive::getWheelSpeeds,
-				new PIDController(2.65, 0, 0), //DriveConstants.kPDriveVel
-				new PIDController(2.65, 0, 0),
+				new PIDController(DriveConstants.kPDriveVel, 0, 0), //DriveConstants.kPDriveVel
+				new PIDController(DriveConstants.kPDriveVel, 0, 0),
 				m_drive::setOutput, m_drive);
 
 		return command;
