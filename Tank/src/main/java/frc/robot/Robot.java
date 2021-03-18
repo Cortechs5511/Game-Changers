@@ -43,7 +43,6 @@ public class Robot extends TimedRobot {
     // AUTO PERIODIC
     @Override
     public void autonomousPeriodic() {
-        // System.out.println("hit auto periodic");
     }
 
     // TELEOP INIT

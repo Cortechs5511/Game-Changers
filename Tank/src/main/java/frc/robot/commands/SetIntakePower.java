@@ -37,12 +37,8 @@ public class SetIntakePower extends CommandBase {
 		} else if (m_oi.getIntakeBackFeed.get()) {
 			m_intake.setIntake(-0.5);
 		} else {
-			if ((Math.abs(m_drive.getLeftVelocity.get()) + Math.abs(m_drive.getRightVelocity.get())) > 270) { // if aveage velocity > 135RPM
-				//m_intake.setIntake(-0.4); // sweep intake
-				m_intake.setIntake(0);
-			} else { // when close to stopped
-				m_intake.setIntake(0); // stop intake
-			}
+			// stop intake
+			m_intake.setIntake(0);
 		}
 
 	}

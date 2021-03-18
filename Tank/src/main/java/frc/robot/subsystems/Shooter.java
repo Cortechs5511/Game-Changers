@@ -64,6 +64,7 @@ public class Shooter extends SubsystemBase {
         shoot1.set(input);
     }
 
+    
     public void setRampRate(double rate) {
         shoot0.setClosedLoopRampRate(rate);
         shoot1.setClosedLoopRampRate(rate);

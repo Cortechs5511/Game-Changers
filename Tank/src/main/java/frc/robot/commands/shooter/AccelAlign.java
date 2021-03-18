@@ -68,8 +68,6 @@ public class AccelAlign extends CommandBase {
 			m_oi.setLeftRumble(0.3);
 			m_oi.setRightRumble(0.3);
 		}
-
-		// System.out.println(currentSpeed);
 	}
 
 	@Override

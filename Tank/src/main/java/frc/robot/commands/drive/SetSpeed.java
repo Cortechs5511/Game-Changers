@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class SetSpeed extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final OI m_oi = OI.getInstance();
-	private double leftInput, rightInput, leftOutput, rightOutput;
 	private final Drive m_drive;
 
 	public SetSpeed(Drive drive) {
@@ -21,8 +20,11 @@ public class SetSpeed extends CommandBase {
 
 	@Override
 	public void execute() {
-		leftInput = m_oi.getLeftY.get();
-		rightInput = m_oi.getRightY.get();
+		double leftInput = m_oi.getLeftY.get();
+		double rightInput = m_oi.getRightY.get();
+
+		double leftOutput;
+		double rightOutput;
 
 		if (Math.abs(leftInput) > 0.1) {
 			leftOutput = leftInput * m_drive.getMaxOutput.get();

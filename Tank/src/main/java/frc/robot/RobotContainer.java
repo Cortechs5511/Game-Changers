@@ -51,18 +51,10 @@ public class RobotContainer {
     XboxController controller = new XboxController(2);
 
     enum autonMode {
-        PathA, TowerSimple, Turn90
+        GalacticSearch, TowerSimple, Turn90, Testing
     }
 
     SendableChooser<autonMode> m_chooser = new SendableChooser<>();
-
-    public static double getNumber(String key, double defaultValue) {
-        if (SmartDashboard.containsKey(key)) {
-            return SmartDashboard.getNumber(key, defaultValue);
-        }
-        SmartDashboard.putNumber(key, defaultValue);
-        return defaultValue;
-    }
 
     public RobotContainer() {
         configureButtonBindings();
@@ -72,13 +64,11 @@ public class RobotContainer {
         m_intake.setDefaultCommand(m_setIntakePower);
         m_climber.setDefaultCommand(m_manualClimb);
 
-        getNumber("DriveDelay", 3.0);
-        getNumber("ShootDelay", 3.0);
-
         m_chooser.addOption("Tower Simple", autonMode.TowerSimple);
         // m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
 
-        m_chooser.addOption("Path A", autonMode.PathA);
+        m_chooser.addOption("Galactic Search", autonMode.GalacticSearch);
+        m_chooser.addOption("Testing", autonMode.Testing);
         m_chooser.addOption("Turn 90", autonMode.Turn90);
         m_chooser.setDefaultOption("Turn 90", autonMode.Turn90);
 
@@ -107,14 +97,15 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         
-        m_drive.resetOdometry(new Pose2d());
 		switch (m_chooser.getSelected()) {
 		case TowerSimple:
 			return TowerSimple.getTowerSimple(m_drive);
 		/*case TrenchSimple:
 			return new WaitCommand(1.0);*/
-		case PathA:
-            return new AutoCollect(m_intake, m_feeder).alongWith(PathA.getPathA(m_drive).andThen(stop()));
+		case GalacticSearch:
+            return new AutoCollect(m_intake, m_feeder).alongWith(TrajectoryFollower.getPath("output/GalacticSearch.wpilib.json", m_drive).andThen(stop()));
+        case Testing:
+            return TrajectoryFollower.getPath("output/Testing.wpilib.json", m_drive).andThen(stop());
 		case Turn90:
 			return Turn90.getTurn90(m_drive).andThen(new WaitCommand(5)).andThen(stop());
 		default:

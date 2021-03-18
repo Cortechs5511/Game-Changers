@@ -21,7 +21,7 @@ public class Feeder extends SubsystemBase {
     private final DigitalInput greenSensor = new DigitalInput(FeederConstants.kGreenSensorPort);
     private final DigitalInput blackSensor = new DigitalInput(FeederConstants.kBlackSensorPort);
 
-    private final Encoder intakeEncoder = new Encoder(4, 5); // wrist -- inop
+    // private final Encoder intakeEncoder = new Encoder(4, 5); // wrist -- inop
     private final Encoder feedEncoder = new Encoder(6, 7); // tower -- inop
 
     public Supplier<Boolean> getBottomSensor = bottomSensor::get;
@@ -48,18 +48,10 @@ public class Feeder extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Top Sensor", topSensor.get());
-        SmartDashboard.putBoolean("Bottom Sensor", bottomSensor.get());
-        SmartDashboard.putBoolean("Green Sensor", greenSensor.get());
-        SmartDashboard.putBoolean("Black Sensor", blackSensor.get());
-        // sumCounter = bottomCounter.get();
-
-        //SmartDashboard.putNumber("Feeder Wheels Encoder", intakeEncoder.get()); // intakeEncoder in feeder subsystem =
-        // black wheels
-        //SmartDashboard.putNumber("Tower Encoder", feedEncoder.get());
-
-        // SmartDashboard.putNumber("Balls Shot", topCounter.get());
-        // SmartDashboard.putNumber("Ball Counter Period", topCounter.getPeriod());
+        SmartDashboard.putBoolean("Feeder/Top Sensor", topSensor.get());
+        SmartDashboard.putBoolean("Feeder/Bottom Sensor", bottomSensor.get());
+        SmartDashboard.putBoolean("Feeder/Green Sensor", greenSensor.get());
+        SmartDashboard.putBoolean("Feeder/Black Sensor", blackSensor.get());
     }
 
     public void setFeederSpeed(double input) {

@@ -79,15 +79,15 @@ public class Drive extends SubsystemBase {
         right0.enableVoltageCompensation(9);
         right1.enableVoltageCompensation(9);
 
-        left0.setOpenLoopRampRate(0.2);
-        left1.setOpenLoopRampRate(0.2);
-        right0.setOpenLoopRampRate(0.2);
-        right1.setOpenLoopRampRate(0.2);
+        left0.setOpenLoopRampRate(0.1);
+        left1.setOpenLoopRampRate(0.1);
+        right0.setOpenLoopRampRate(0.1);
+        right1.setOpenLoopRampRate(0.1);
 
-        left0.setClosedLoopRampRate(0.2); // still to be tested
-        left1.setClosedLoopRampRate(0.2);
-        right0.setClosedLoopRampRate(0.2);
-        right1.setClosedLoopRampRate(0.2);
+        left0.setClosedLoopRampRate(0.1); // still to be tested
+        left1.setClosedLoopRampRate(0.1);
+        right0.setClosedLoopRampRate(0.1);
+        right1.setClosedLoopRampRate(0.1);
 
         left0.setSmartCurrentLimit(60, 60, 9000);
         left1.setSmartCurrentLimit(60, 60, 9000);
@@ -183,11 +183,12 @@ public class Drive extends SubsystemBase {
 
         SmartDashboard.putNumber("Drive/Left Speed", leftVelocity);
         SmartDashboard.putNumber("Drive/Right Speed", rightVelocity);
-
-        double currentTime = Timer.getFPGATimestamp();
+ 
         double leftPosition = leftEnc.getPosition();
         double rightPosition = rightEnc.getPosition();
 
+        /*
+        double currentTime = Timer.getFPGATimestamp();
         double computedLeftVelocity = (leftPosition - previousLeftPosition) / (currentTime - previousTime);
         double computedRightVelocity = (rightPosition - previousRightPosition) / (currentTime - previousTime);
 
@@ -200,8 +201,8 @@ public class Drive extends SubsystemBase {
         previousTime = currentTime;
         previousLeftPosition = leftPosition;
         previousRightPosition = rightPosition;
+        */
 
-        
         SmartDashboard.putNumber("Drive/Left Position", leftPosition);
         SmartDashboard.putNumber("Drive/Right Position", rightPosition);
 
@@ -209,16 +210,9 @@ public class Drive extends SubsystemBase {
         SmartDashboard.putNumber("Drive/Right Power", right0.getAppliedOutput());
 
         SmartDashboard.putNumber("NavX Angle", navx.getAngle());
-        m_fieldSim.setRobotPose(m_odometry.getPoseMeters());
-
-        /*
-         * angle_kP = SmartDashboard.getNumber("Angle P", 0.03); angle_kI =
-         * SmartDashboard.getNumber("Angle I", 0.04); angle_kD =
-         * SmartDashboard.getNumber("Angle D", 0.001); anglePID.setPID(angle_kP,
-         * angle_kI, angle_kD);
-         */
 
         m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEnc.getPosition(), rightEnc.getPosition());
+        m_fieldSim.setRobotPose(m_odometry.getPoseMeters());
     }
 
     public boolean getDirection() {
