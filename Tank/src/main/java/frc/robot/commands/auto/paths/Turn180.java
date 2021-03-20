@@ -23,9 +23,9 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 import java.util.List;
 
-public class Turn90 {
+public class Turn180 {
     
-	public static RamseteCommand getTurn90(Drive m_drive) {
+	public static RamseteCommand getTurn180(Drive m_drive) {
 		m_drive.resetOdometry(new Pose2d(0, 0, new Rotation2d()));
 		final DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
 				new SimpleMotorFeedforward(DriveConstants.ksVolts * 15, DriveConstants.kvVoltSecondsPerMeter,
@@ -36,31 +36,28 @@ public class Turn90 {
 				AutoConstants.kMaxAccelerationMetersPerSecondSquared).setKinematics(DriveConstants.kDriveKinematics)
 						.addConstraint(autoVoltageConstraint);
 
-		Trajectory turn90 = TrajectoryGenerator.generateTrajectory(
+		Trajectory turn180 = TrajectoryGenerator.generateTrajectory(
             new Pose2d(0, 0, new Rotation2d()),
             List.of(
 
-			//new Translation2d(1.524, 0.762),
-            //new Translation2d(3.048, 1.524),
-			//new Translation2d(3.81, -0.762)),
-			//new Pose2d(8.382, 0, new Rotation2d()),
-
-			//new Translation2d(1.524, 0.9),
-			//new Translation2d(3.048, 1.3),
-			//new Translation2d(3.81, -0.9)),
-			//new Pose2d(9, -0.15, new Rotation2d()),
-
-			new Translation2d(2.286, 0.762),
+			/*new Translation2d(2.286, 0.762),
 			//new Translation2d(3.81, 1.524),
 			new Translation2d(3.81, 1.42),
 			//new Translation2d(4.572, -0.762),
 			new Translation2d(4.37, -0.762),
 			new Translation2d(6.096, 0.3)),
 			new Pose2d(10.16, 1.524, new Rotation2d()),
+			*/
+
+			new Translation2d(2.286, 0.762),
+			new Translation2d(3.81, 2.286),
+			new Translation2d(5.334, 0.762),
+			new Translation2d(6.856, 2.286)),
+			new Pose2d(10.16, 3.048, new Rotation2d()),
 
             config); // trajectory ends here
 
-		RamseteCommand command = new RamseteCommand(turn90, m_drive::getPose,
+		RamseteCommand command = new RamseteCommand(turn180, m_drive::getPose,
 				new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
 				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
 						DriveConstants.kaVoltSecondsSquaredPerMeter),

@@ -51,7 +51,7 @@ public class RobotContainer {
     XboxController controller = new XboxController(2);
 
     enum autonMode {
-        GalacticSearch, TowerSimple, Turn90, Testing
+        GalacticSearch, TowerSimple, Turn90, Turn180, Testing
     }
 
     SendableChooser<autonMode> m_chooser = new SendableChooser<>();
@@ -70,7 +70,8 @@ public class RobotContainer {
         m_chooser.addOption("Galactic Search", autonMode.GalacticSearch);
         m_chooser.addOption("Testing", autonMode.Testing);
         m_chooser.addOption("Turn 90", autonMode.Turn90);
-        m_chooser.setDefaultOption("Turn 90", autonMode.Turn90);
+        m_chooser.addOption("Turn 180", autonMode.Turn180);
+        m_chooser.setDefaultOption("Turn 90", autonMode.Turn180);
 
         Shuffleboard.getTab("Autonomous").add(m_chooser);
     }
@@ -107,7 +108,9 @@ public class RobotContainer {
         case Testing:
             return TrajectoryFollower.getPath("output/Testing.wpilib.json", m_drive).andThen(stop());
 		case Turn90:
-			return Turn90.getTurn90(m_drive).andThen(new WaitCommand(5)).andThen(stop());
+            return new AutoCollect(m_intake, m_feeder).alongWith(Turn90.getTurn90(m_drive).andThen(new WaitCommand(5)).andThen(stop()));
+        case Turn180:
+            return new AutoCollect(m_intake, m_feeder).alongWith(Turn180.getTurn180(m_drive).andThen(new WaitCommand(5)).andThen(stop()));
 		default:
 			return new WaitCommand(1.0);
 
