@@ -59,6 +59,6 @@ public class StopShooter extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return (count > 25); 
+        return (count > 10); 
     }
 }

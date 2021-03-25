@@ -22,9 +22,9 @@ public class SetIntakePower extends CommandBase {
     @Override
     public void execute() {
         if (m_oi.getWristDown.get()) {
-            m_intake.setWrist(0.3);
+            m_intake.setWrist(0.4);
         } else if (m_oi.getWristUp.get()) {
-            m_intake.setWrist(-0.48);
+            m_intake.setWrist(-0.6);
         } else {
             m_intake.setWrist(0);
         }
@@ -34,10 +34,8 @@ public class SetIntakePower extends CommandBase {
         } else if (m_oi.getIntakeBackFeed.get()) {
             m_intake.setIntake(-0.5);
         } else {
-            // stop intake
             m_intake.setIntake(0);
         }
-
     }
 
     @Override

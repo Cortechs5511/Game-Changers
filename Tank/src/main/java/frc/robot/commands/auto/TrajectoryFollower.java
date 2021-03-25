@@ -32,7 +32,7 @@ public class TrajectoryFollower extends CommandBase {
                     new PIDController(DriveConstants.kPDriveVel, 0, 0),
                     m_drive::setOutput, m_drive);
         } catch (IOException ex) {
-            System.out.println("Unable to open trajectory: " + trajectoryJSON);
+            System.out.println( "Unable to open trajectory: " + trajectoryJSON);
         }
         return null;
     }

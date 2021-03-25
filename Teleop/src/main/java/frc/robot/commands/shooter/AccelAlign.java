@@ -46,7 +46,7 @@ public class AccelAlign extends CommandBase {
 
 		if (Math.abs(val) > 0.35) {
 			val = (0.35 * val / Math.abs(val));
-		} else if (Math.abs(val) < 0.05) {
+		} else if (Math.abs(val) < 0.01) {
 			val = 0;
 		}
 
@@ -59,8 +59,8 @@ public class AccelAlign extends CommandBase {
 			count = 0;
 		}
 		if (count != 0) {
-			m_oi.setLeftRumble(0.3);
-			m_oi.setRightRumble(0.3);
+			m_oi.setLeftRumble(1.0);
+			m_oi.setRightRumble(1.0);
 		}
 	}
 

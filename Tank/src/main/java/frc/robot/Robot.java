@@ -23,13 +23,13 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
+        m_robotContainer.disabledInit();
     }
 
     @Override
     public void disabledPeriodic() {
     }
 
-    // AUTO INIT
     @Override
     public void autonomousInit() {
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -40,18 +40,15 @@ public class Robot extends TimedRobot {
 
     }
 
-    // AUTO PERIODIC
     @Override
     public void autonomousPeriodic() {
     }
 
-    // TELEOP INIT
     @Override
     public void teleopInit() {
         m_robotContainer.teleopInit(this);
     }
 
-    // TELEOP PERIODIC
     @Override
     public void teleopPeriodic() {
     }

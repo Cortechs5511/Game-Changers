@@ -19,9 +19,9 @@ public final class Constants {
         public static final int kRightMotor0Port = 20;
         public static final int kRightMotor1Port = 21;
 
-        public static final double kAngleP = 0.03;
-        public static final double kAngleI = 0.04;
-        public static final double kAngleD = 0.001;
+        public static final double kAngleP = 0.023;
+        public static final double kAngleI = 0.037;
+        public static final double kAngleD = 0.00115;
     }
 
     public static final class ShooterConstants {
@@ -32,7 +32,7 @@ public final class Constants {
         public static final double kShootI = 0;
         public static final double kShootD = 0;
         public static final double kShootFF = 0.000199;
-        public static final double kIdlePower = 0.1;
+        public static final double kIdlePower = 0.25;
     }
 
     public static final class FeederConstants {

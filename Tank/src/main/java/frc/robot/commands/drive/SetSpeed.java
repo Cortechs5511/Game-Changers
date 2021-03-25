@@ -26,12 +26,12 @@ public class SetSpeed extends CommandBase {
 		double leftOutput;
 		double rightOutput;
 
-		if (Math.abs(leftInput) > 0.1) {
+		if (Math.abs(leftInput) > 0.05) {
 			leftOutput = leftInput * m_drive.getMaxOutput.get();
 		} else {
 			leftOutput = 0;
 		}
-		if (Math.abs(rightInput) > 0.1) {
+		if (Math.abs(rightInput) > 0.05) {
 			rightOutput = rightInput * m_drive.getMaxOutput.get();
 		} else {
 			rightOutput = 0;

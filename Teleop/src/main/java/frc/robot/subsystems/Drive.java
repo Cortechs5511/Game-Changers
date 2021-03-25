@@ -37,7 +37,7 @@ public class Drive extends SubsystemBase {
         right1.follow(right0);
 
         anglePID.disableContinuousInput();
-        anglePID.setIntegratorRange(-1, 1);
+        anglePID.setIntegratorRange(-0.1, 0.1);
     }
 
     private CANSparkMax createSparkMAX(int id, boolean invert) {

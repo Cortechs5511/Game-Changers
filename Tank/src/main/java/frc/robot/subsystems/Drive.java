@@ -141,7 +141,7 @@ public class Drive extends SubsystemBase {
     }
 
     public double getHeading() {
-        return Math.IEEEremainder(navx.getAngle(), 360);
+        return -Math.IEEEremainder(navx.getAngle(), 360);
     }
 
     public Pose2d getPose() {
@@ -149,8 +149,8 @@ public class Drive extends SubsystemBase {
     }
 
     public void setOutput(double leftVolts, double rightVolts) {
-        left0.set(leftVolts / 9);
-        right0.set(rightVolts / 9);
+        left0.set(rightVolts / 9);
+        right0.set(leftVolts / 9);
     }
 
     public void resetOdometry(Pose2d pose) {
@@ -212,7 +212,7 @@ public class Drive extends SubsystemBase {
         SmartDashboard.putNumber("NavX Angle", navx.getAngle());
 
         m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEnc.getPosition(), rightEnc.getPosition());
-        m_fieldSim.setRobotPose(m_odometry.getPoseMeters());
+        // m_fieldSim.setRobotPose(m_odometry.getPoseMeters());
     }
 
     public boolean getDirection() {

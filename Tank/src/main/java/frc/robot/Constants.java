@@ -10,9 +10,9 @@ public final class Constants {
         public static final int kRightMotor1Port = 21;
 
         public static final double kEncoderCPR = 42.0;
-        public static final double kGearing = 8.2424;
+        public static final double kGearing = 11.127;
         public static final double kWheelDiameterMeters = 0.1524;
-        public static final double kEncoderDistancePerPulse = 1 / (8.2424 / 0.4788);
+        public static final double kEncoderDistancePerPulse = 1 / (11.127 / 0.4788);
         public static final double kEncoderPulsesPerMeter = 1/ kEncoderDistancePerPulse;
 
         public static final double kTrackwidthMeters = 0.676; // track width for impulse
@@ -22,11 +22,11 @@ public final class Constants {
         // public static final double enc_ToIn = 137.25 / (((5482.95 - 2949.08) + (4903.02 - 2375.024658)) / 2);
         // public static final double encToM = enc_ToIn * .0254;
 
-        public static final double ksVolts = 0.313; // s, v, a for impulse //ks from characterization old: 0.218
-        public static final double kvVoltSecondsPerMeter = 2.36; //kv from characterization old: 2.24
-        public static final double kaVoltSecondsSquaredPerMeter = 0.482;  //ks from characterization old: 0.516
+        public static final double ksVolts = 0.524; // s, v, a for impulse //ks from characterization old: 0.218
+        public static final double kvVoltSecondsPerMeter = 2.8; //kv from characterization old: 2.24
+        public static final double kaVoltSecondsSquaredPerMeter = 0.0462;  //ks from characterization old: 0.516
 
-        public static final double kPDriveVel = 0.112;
+        public static final double kPDriveVel = 0.208;
 
         public static final double kLeftP = 0.0294; // 0.146;
         public static final double kLeftI = 0;

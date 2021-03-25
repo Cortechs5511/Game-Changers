@@ -13,11 +13,6 @@ public class LightToggle extends InstantCommand {
 
 	@Override
 	public void initialize() {
-		double current = m_limelight.getLightStatus();
-		if (current == 1) { // if off
-			m_limelight.setLightStatus(3); // on
-		} else {
-			m_limelight.setLightStatus(1); // off
-		}
+        m_limelight.setLightStatus(m_limelight.getLightStatus() == 3 ? 1 : 3);
 	}
 }

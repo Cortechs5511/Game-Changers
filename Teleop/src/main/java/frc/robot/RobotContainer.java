@@ -53,6 +53,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         new JoystickButton(leftStick, 2).whenPressed(m_drive::flip);
         new JoystickButton(rightStick, 2).whenPressed(() -> m_drive.setMaxOutput(0.5)).whenReleased(() -> m_drive.setMaxOutput(1.0));
+        new JoystickButton(rightStick, 4).whenPressed(() -> m_drive.setMaxOutput(0.25)).whenReleased(() -> m_drive.setMaxOutput(1.0));
         
         new JoystickButton(controller, 2).whenPressed(m_shootAlign, true);
         new JoystickButton(controller, 3).whenPressed((new StopShooter(m_shooter, m_limelight, m_feeder, m_drive)).andThen(() -> m_shooter.setOutput(ShooterConstants.kIdlePower)));
