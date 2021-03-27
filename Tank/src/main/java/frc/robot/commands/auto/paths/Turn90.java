@@ -39,24 +39,22 @@ public class Turn90 {
 		Trajectory turn90 = TrajectoryGenerator.generateTrajectory(
             new Pose2d(0, 0, new Rotation2d()),
             List.of(
-
-			//new Translation2d(1.524, 0.762),
-            //new Translation2d(3.048, 1.524),
-			//new Translation2d(3.81, -0.762)),
-			//new Pose2d(8.382, 0, new Rotation2d()),
-
-			//new Translation2d(1.524, 0.9),
-			//new Translation2d(3.048, 1.3),
-			//new Translation2d(3.81, -0.9)),
-			//new Pose2d(9, -0.15, new Rotation2d()),
-
-			new Translation2d(2.286, 0.762),
+			
+			
+			/*new Translation2d(2.286, 0.762),
 			//new Translation2d(3.81, 1.524),
 			new Translation2d(3.81, 1.42),
 			//new Translation2d(4.572, -0.762),
 			new Translation2d(4.37, -0.762),
 			new Translation2d(6.096, 0.3)),
 			new Pose2d(10.16, 1.524, new Rotation2d()),
+			*/
+			
+
+			new Translation2d(-0.5, -0.5)),
+			new Pose2d(-1, -2, new Rotation2d()),
+			
+
 
             config); // trajectory ends here
 

@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryParameterizer;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryParameterizer.TrajectoryGenerationException;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,7 +50,7 @@ public class RobotContainer {
     XboxController controller = new XboxController(2);
 
     enum autonMode {
-        GalacticSearch, TowerSimple, Turn90, Turn180, Testing, BounceTest
+        GalacticSearch, TowerSimple, Turn90, Turn180, Testing, BounceTest, AutoNavB, CurveTest
     }
 
     SendableChooser<autonMode> m_chooser = new SendableChooser<>();
@@ -67,7 +70,9 @@ public class RobotContainer {
         m_chooser.addOption("Turn 90", autonMode.Turn90);
         m_chooser.addOption("Turn 180", autonMode.Turn180);
         m_chooser.addOption("Bounce Test", autonMode.BounceTest);
-        m_chooser.setDefaultOption("Turn 90", autonMode.Turn180);
+        m_chooser.addOption("AutoNav B", autonMode.AutoNavB);
+        m_chooser.addOption("Curve Test", autonMode.CurveTest);
+        m_chooser.setDefaultOption("Curve Test", autonMode.CurveTest);
 
         Shuffleboard.getTab("Autonomous").add(m_chooser);
     }
@@ -110,6 +115,13 @@ public class RobotContainer {
         case Turn180:
             return new AutoCollect(m_intake, m_feeder).alongWith(
                 Turn180.getTurn180(m_drive).andThen(new WaitCommand(5)).andThen(stop()));
+        case AutoNavB:
+            return TrajectoryFollower.getPath("output/AutoNavB_2.wpilib.json", m_drive).andThen(stop());
+            //the AutoNavB_2 file has a maxV of 1.5 and maxA of 2, while the regular AutoNavB is set up with maxV=maxA=1
+            //the second file is much faster, but possibly more inconsistent
+        case CurveTest:
+            return TrajectoryFollower.getPath("output/FirstCurve.wpilib.json", m_drive).andThen(
+                    TrajectoryFollower.getPath("output/SecondCurve.wpilib.json", m_drive));
 		default:
 			return new WaitCommand(1.0);
 
