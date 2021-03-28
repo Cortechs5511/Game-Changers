@@ -16,12 +16,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class TrajectoryFollower extends CommandBase {
-    public static RamseteCommand getPath(String trajectoryJSON, Drive m_drive) {
+    public static RamseteCommand getPath(String trajectoryJSON, Drive m_drive, boolean reset) {
         try {
             Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
             Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
             
-            m_drive.resetOdometry(trajectory.getInitialPose());
+            if (reset) {
+                m_drive.resetOdometry(trajectory.getInitialPose());
+            }
 
             return new RamseteCommand(trajectory, m_drive::getPose,
                     new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
