@@ -12,6 +12,6 @@ public class Flip extends InstantCommand {
 
 	@Override
 	public void initialize() {
-		m_drive.setDirection(!(m_drive.getDirection()));
+		m_drive.invert = (!m_drive.invert);
 	}
 }

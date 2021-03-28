@@ -19,9 +19,6 @@ public final class Constants {
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
                 kTrackwidthMeters);
 
-        // public static final double enc_ToIn = 137.25 / (((5482.95 - 2949.08) + (4903.02 - 2375.024658)) / 2);
-        // public static final double encToM = enc_ToIn * .0254;
-
         public static final double ksVolts = 0.524; // s, v, a for impulse //ks from characterization old: 0.218
         public static final double kvVoltSecondsPerMeter = 2.8; //kv from characterization old: 2.24
         public static final double kaVoltSecondsSquaredPerMeter = 0.0462;  //ks from characterization old: 0.516
@@ -41,36 +38,6 @@ public final class Constants {
         public static final double kAngleP = 0.03; // not implemented yet pending final testing
         public static final double kAngleI = 0.02;
         public static final double kAngleD = 0.002;
-    }
-
-    public static final class FeederConstants {
-        public static final int kWristPort = 30;
-        public static final int kIntakePort = 31;
-
-        public static final int kFeeder0Port = 40;
-        public static final int kFeeder1Port = 41;
-        public static final int kFeeder2Port = 42;
-        public static final int kFeeder3Port = 43;
-
-        public static final int kTopSensorPort = 0;
-        public static final int kBottomSensorPort = 1;
-        public static final int kGreenSensorPort = 2;
-        public static final int kBlackSensorPort = 3;
-    }
-
-    public static final class ShooterConstants {
-        public static final int kShoot0Port = 50;
-        public static final int kShoot1Port = 51;
-
-        public static final double kShootP = 0.00025;
-        public static final double kShootI = 0;
-        public static final double kShootD = 0;
-        public static final double kShootFF = 0.000199;
-    }
-
-    public static final class ClimberConstants {
-        public static final int kClimb0Port = 60;
-        public static final int kClimb1Port = 61;
     }
 
     public static final class OIConstants {

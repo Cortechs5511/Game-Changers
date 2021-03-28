@@ -13,7 +13,6 @@ public class StopDrive extends InstantCommand {
 
 	@Override
 	public void initialize() {
-		m_drive.setBrake();
 		m_drive.setLeft(0);
 		m_drive.setRight(0);
 	}
