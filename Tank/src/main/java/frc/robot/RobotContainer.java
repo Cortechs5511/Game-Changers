@@ -116,9 +116,7 @@ public class RobotContainer {
             return new AutoCollect(m_intake, m_feeder).alongWith(
                 Turn180.getTurn180(m_drive).andThen(new WaitCommand(5)).andThen(stop()));
         case AutoNavB:
-            return TrajectoryFollower.getPath("output/AutoNavB_2.wpilib.json", m_drive).andThen(stop());
-            //the AutoNavB_2 file has a maxV of 1.5 and maxA of 2, while the regular AutoNavB is set up with maxV=maxA=1
-            //the second file is much faster, but possibly more inconsistent
+            return TrajectoryFollower.getPath("output/AutoNavB.wpilib.json", m_drive).andThen(stop());
         case CurveTest:
             return TrajectoryFollower.getPath("output/FirstCurve.wpilib.json", m_drive).andThen(
                     TrajectoryFollower.getPath("output/SecondCurve.wpilib.json", m_drive));
