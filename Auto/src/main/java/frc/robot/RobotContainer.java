@@ -37,7 +37,11 @@ public class RobotContainer {
         m_chooser.setDefaultOption("Curve Test", autonMode.CurveTest);
 
         Shuffleboard.getTab("Autonomous").add(m_chooser);
+        // getAutonomousCommand(autonMode.BarrelRacing);
+        // getAutonomousCommand(autonMode.AutoNavB);
+        // getAutonomousCommand(autonMode.Slalom);
     }
+
 
     private void configureButtonBindings() {
         new JoystickButton(leftStick, 2).whenPressed(new Flip(m_drive));
@@ -51,8 +55,8 @@ public class RobotContainer {
                 .whenReleased(() -> m_drive.setMaxOutput(0.9));
     }
 
-    public Command getAutonomousCommand() {
-        switch (m_chooser.getSelected()) {
+    public Command getAutonomousCommand(autonMode choice) {
+        switch (choice) {
             case Testing:
                 return TrajectoryFollower.getPath("output/Testing.wpilib.json", m_drive, true).andThen(stop());
             case BounceTest:
@@ -69,8 +73,11 @@ public class RobotContainer {
                         .andThen(TrajectoryFollower.getPath("output/SecondCurve.wpilib.json", m_drive, false));
             default:
                 return new WaitCommand(1.0);
-
         }
+    }
+
+    public Command getAutonomousCommand() {
+        return getAutonomousCommand(m_chooser.getSelected());
     }
 
     private Command stop() {

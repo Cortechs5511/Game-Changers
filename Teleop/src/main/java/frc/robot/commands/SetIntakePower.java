@@ -30,7 +30,7 @@ public class SetIntakePower extends CommandBase {
         }
 
         if (m_oi.getIntake.get()) {
-            m_intake.setIntake(0.75);
+            m_intake.setIntake(1);
         } else if (m_oi.getIntakeBackFeed.get()) {
             m_intake.setIntake(-0.5);
         } else {

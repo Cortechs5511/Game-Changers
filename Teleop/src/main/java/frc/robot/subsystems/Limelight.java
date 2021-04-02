@@ -23,6 +23,7 @@ public class Limelight extends SubsystemBase {
         ledMode.setNumber(1); // sets lights off
         SmartDashboard.putNumber("Shooter/RPM Setpoint", 0);
         SmartDashboard.putNumber("Shooter/RPM Adjustment", 0);
+        SmartDashboard.putNumber("Shooter/Flat RPM", 0);
         SmartDashboard.putBoolean("Limelight/Limelight Lights", false);
     }
 
@@ -37,6 +38,11 @@ public class Limelight extends SubsystemBase {
     }
 
     public double calculateRPM() {
+        double flatRPM = SmartDashboard.getNumber("Shooter/Flat RPM", 0);
+        if (flatRPM != 0) {
+            return flatRPM;
+        }
+        
         double distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
         // 0.00913x^2 -2.69x + 3647
         double rpm = (0.00913 * Math.pow(distance, 2)) - (2.69 * distance) + 3647 + RPMAdjustment;

@@ -31,7 +31,7 @@ public class SetFeederPower extends CommandBase {
 		double blackSpeed;
 		double greenSpeed;
 		if (intaking) {
-			blackSpeed = 0.7;
+			blackSpeed = 0.6;
 			greenSpeed = 0.6;
 		} else {
 			blackSpeed = 0;

@@ -1,3 +1,4 @@
+
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -18,7 +19,7 @@ public class Intake extends SubsystemBase {
         wrist.setNeutralMode(NeutralMode.Brake);
         intake.setNeutralMode(NeutralMode.Brake);
 
-        intake.setInverted(true);
+        intake.setInverted(false);
         intake.configOpenloopRamp(0.1);
     }
 

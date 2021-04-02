@@ -1,5 +1,6 @@
 package frc.robot.commands.shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.Shooter;
@@ -47,7 +48,7 @@ public class Cruise extends CommandBase {
 		if (!m_feeder.getTopSensor.get()) { // if there is a ball in the top, and stabilized
 			count = 0; // count is 0
 		} else if (feedCount > threshold) { // else (there is no ball, or the sensor is dead), timer starts counting
-			count++;
+		    count++;
 		}
 
 		if ((Math.abs(m_shooter.getSpeed.get() - target)) < 50) {
@@ -55,6 +56,8 @@ public class Cruise extends CommandBase {
 		} else {
 			feedCount = 0;
 		}
+
+        SmartDashboard.putNumber("Shooter/Feed Count", feedCount);
 
 		if (feedCount > threshold) {
 			m_feeder.setFeederSpeed(0.5); // .45
@@ -86,6 +89,7 @@ public class Cruise extends CommandBase {
 		m_shooter.setPIDReference(0);
 		m_shooter.setOutput(ShooterConstants.kIdlePower);
 
+        m_intake.setIntake(0);
 		m_feeder.setFeederSpeed(0);
 		m_feeder.setFeeder2Speed(0);
 		m_feeder.setFeeder3Speed(0);
