@@ -30,7 +30,7 @@ public class RobotContainer {
     private final Intake m_intake = new Intake();
 
     private final ShootAlign m_shootAlignFast = new ShootAlign(0.5, -1, m_drive, m_shooter, m_feeder, m_limelight, m_intake);
-    private final ShootAlign m_shootAlignSlow = new ShootAlign(0.25, 50, m_drive, m_shooter, m_feeder, m_limelight, m_intake);
+    private final ShootAlign m_shootAlignSlow = new ShootAlign(0.1, 50, m_drive, m_shooter, m_feeder, m_limelight, m_intake);
 
     private final StopShooter m_stopShooter = new StopShooter(m_shooter, m_limelight, m_feeder, m_drive);
     private final LightToggle m_lightToggle = new LightToggle(m_limelight);
