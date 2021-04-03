@@ -31,7 +31,6 @@ public class RobotContainer {
 
     private final ShootAlign m_shootAlignFast = new ShootAlign(0.5, -1, m_drive, m_shooter, m_feeder, m_limelight, m_intake);
     private final ShootAlign m_shootAlignSlow = new ShootAlign(0.25, 50, m_drive, m_shooter, m_feeder, m_limelight, m_intake);
-    private final ShootAlign m_shootAlignReallySlow = new ShootAlign(0.1, 50, m_drive, m_shooter, m_feeder, m_limelight, m_intake);
 
     private final StopShooter m_stopShooter = new StopShooter(m_shooter, m_limelight, m_feeder, m_drive);
     private final LightToggle m_lightToggle = new LightToggle(m_limelight);
@@ -57,20 +56,11 @@ public class RobotContainer {
         new JoystickButton(rightStick, 2).whenPressed(() -> m_drive.setMaxOutput(0.5)).whenReleased(() -> m_drive.setMaxOutput(1.0));
         new JoystickButton(rightStick, 4).whenPressed(() -> m_drive.setMaxOutput(0.25)).whenReleased(() -> m_drive.setMaxOutput(1.0));
         
-        //mapping to a two-joystick method
-        //new JoystickButton(controller, 4).whenPressed(m_shootAlignSlow, true);
-        //new JoystickButton(controller, 2).whenPressed(m_shootAlignFast, true);
-        new JoystickButton(leftStick, 2).whenPressed(m_shootAlignFast, true);
-        new JoystickButton(rightStick, 2).whenPressed(m_shootAlignSlow, true);
-        new JoystickButton(rightStick, 3).whenPressed(m_shootAlignReallySlow, true);
-
+        new JoystickButton(controller, 4).whenPressed(m_shootAlignSlow, true);
+        new JoystickButton(controller, 2).whenPressed(m_shootAlignFast, true);
         new JoystickButton(controller, 3).whenPressed((new StopShooter(m_shooter, m_limelight, m_feeder, m_drive)).andThen(() -> m_shooter.setOutput(ShooterConstants.kIdlePower)));
-        
-        //new JoystickButton(controller, 8).whenPressed(m_stopShooter, false);
-        new JoystickButton(leftStick, 4).whenPressed(m_stopShooter, false);
-
-        //new JoystickButton(controller, 7).whenPressed(m_lightToggle, true);
-        new JoystickButton(rightStick, 4);
+        new JoystickButton(controller, 8).whenPressed(m_stopShooter, false);
+        new JoystickButton(controller, 7).whenPressed(m_lightToggle, true);
     }
 
     public Command getAutonomousCommand() {
