@@ -20,7 +20,7 @@ public class RobotContainer {
     SendableChooser<autonMode> m_chooser = new SendableChooser<>();
 
     enum autonMode {
-        Testing, BounceTest, AutoNavB, CurveTest, Slalom, BarrelRacing
+        Testing, BounceTest, BouncePath, CurveTest, Slalom, BarrelRacing
     }
 
     public RobotContainer() {
@@ -31,7 +31,7 @@ public class RobotContainer {
 
         m_chooser.addOption("Testing", autonMode.Testing);
         m_chooser.addOption("Bounce Test", autonMode.BounceTest);
-        m_chooser.addOption("AutoNav B", autonMode.AutoNavB);
+        m_chooser.addOption("Bounce Path", autonMode.BouncePath);
         m_chooser.addOption("Slalom", autonMode.Slalom);
         m_chooser.addOption("Barrel Racing", autonMode.BarrelRacing);
         m_chooser.setDefaultOption("Curve Test", autonMode.CurveTest);
@@ -62,8 +62,11 @@ public class RobotContainer {
             case BounceTest:
                 return TrajectoryFollower.getPath("output/BounceTest1.wpilib.json", m_drive, true)
                         .andThen(TrajectoryFollower.getPath("output/BounceTest2.wpilib.json", m_drive, false));
-            case AutoNavB:
-                return TrajectoryFollower.getPath("output/AutoNavB.wpilib.json", m_drive, true).andThen(stop());
+            case BouncePath:
+                return TrajectoryFollower.getPath("output/Bounce1.wpilib.json", m_drive, true)
+                .andThen(TrajectoryFollower.getPath("output/Bounce2.wpilib.json", m_drive, false)
+                .andThen(TrajectoryFollower.getPath("output/Bounce3.wpilib.json", m_drive, false)
+                .andThen(TrajectoryFollower.getPath("output/Bounce4.wpilib.json", m_drive, false).andThen(stop()))));
             case Slalom:
                 return TrajectoryFollower.getPath("output/Slalom.wpilib.json", m_drive, true).andThen(stop());
             case BarrelRacing:
