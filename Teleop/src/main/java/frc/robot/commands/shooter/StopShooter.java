@@ -33,7 +33,7 @@ public class StopShooter extends CommandBase {
         m_feeder.setFeeder2Speed(0);
         m_feeder.setFeeder3Speed(0);
 
-        m_shooter.setRampRate(1.5);
+        m_shooter.setRampRate(0.75);
 
         m_drive.set(0, 0);
 

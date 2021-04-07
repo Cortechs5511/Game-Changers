@@ -32,7 +32,7 @@ public final class Constants {
         public static final double kShootI = 0;
         public static final double kShootD = 0;
         public static final double kShootFF = 0.000199;
-        public static final double kIdlePower = 0.25;
+        public static final double kIdlePower = 0.45;
     }
 
     public static final class FeederConstants {

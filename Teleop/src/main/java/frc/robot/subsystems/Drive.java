@@ -50,7 +50,7 @@ public class Drive extends SubsystemBase {
         controller.enableVoltageCompensation(12);
         controller.setOpenLoopRampRate(0.1);
         controller.setClosedLoopRampRate(0.1);
-        controller.setSmartCurrentLimit(80, 80, 9000);
+        controller.setSmartCurrentLimit(70, 70, 9000);
 
         return controller;
     }

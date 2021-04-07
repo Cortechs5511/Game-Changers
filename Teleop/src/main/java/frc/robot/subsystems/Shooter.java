@@ -48,8 +48,8 @@ public class Shooter extends SubsystemBase {
         controller.setInverted(true);
 
         controller.enableVoltageCompensation(11);
-        controller.setOpenLoopRampRate(1.5);
-        controller.setClosedLoopRampRate(1.5);
+        controller.setOpenLoopRampRate(0.75);
+        controller.setClosedLoopRampRate(0.75);
         controller.setSmartCurrentLimit(80, 80, 9000);
         controller.setSecondaryCurrentLimit(200);
 

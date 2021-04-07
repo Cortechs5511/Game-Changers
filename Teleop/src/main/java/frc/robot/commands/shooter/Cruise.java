@@ -85,7 +85,7 @@ public class Cruise extends CommandBase {
 		m_oi.setLeftRumble(0);
 		m_oi.setRightRumble(0);
 
-		m_shooter.setRampRate(1.5);
+		m_shooter.setRampRate(0.75);
 		m_shooter.setPIDReference(0);
 		m_shooter.setOutput(ShooterConstants.kIdlePower);
 

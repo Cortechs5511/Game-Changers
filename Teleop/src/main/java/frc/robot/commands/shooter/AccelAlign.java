@@ -31,7 +31,7 @@ public class AccelAlign extends CommandBase {
 
 	@Override
 	public void initialize() {
-		m_shooter.setRampRate(1.5);
+		m_shooter.setRampRate(0.75);
 		calculatedSpeed = m_limelight.calculateRPM();
 		m_shooter.setPIDReference(calculatedSpeed);
 
